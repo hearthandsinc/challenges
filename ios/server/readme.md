@@ -32,5 +32,5 @@ respond, or send duplicate events in the stream. You should react accordingly.
   * `author` (`string`): either `"user"` or `"bot"` depending on who sent the
     message
   * `text` (`string`): the actual text of the message
-  * `created_at` (`int`): the date at which the message was stored by the
-    server
+  * `created_at` (`int`): the timestamp in milliseconds at which the message was
+    stored by the server
