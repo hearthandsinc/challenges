@@ -1,6 +1,6 @@
 # iOS Challenge
 
-This challenge is part of the iOS positions hiring process at [Heart Hands,
+This challenge is part of the iOS hiring process at [Heart Hands,
 Inc](https://hearthands.tech/).
 
 ## Why this challenge?
@@ -19,9 +19,9 @@ We are expecting you to spend no more than 48 hours on this.
 You are tasked to develop a consumer application that allows you to converse
 with a chatbot.
 
-A server is available, you can read more about it in [`./server`](./server). It
-contains documentation on how to run it and what kinds of api endpoints are
-available.
+A server is available, you can read more about it in [`./server`](./server). The
+documentation contains informations on how to run the server and what kinds of
+API endpoints are available.
 
 ## Requirements
 
