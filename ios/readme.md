@@ -33,7 +33,7 @@ what kinds of endpoints are available.
 
 ## Bonus
 
-- Make your app work offline (both for navigating and sending)
+- Make your app work offline (both for app state and sending)
 - Make your app resilient to bad network conditions (retries & timeouts)
 - Make your app idempotent for both what you send and what you receive
 - Make the app compatible to run on iPad and macOS
