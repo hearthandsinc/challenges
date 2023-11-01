@@ -37,4 +37,4 @@ API endpoints are available.
 - Make your app resilient to bad network conditions (retries & timeouts)
 - Make your app idempotent for both what you send and what you receive
 - Make the app compatible to run on iPad and macOS
-- Add animations to make the app shiny
+- Avoid block changing states so the app feels fluid & snappy
