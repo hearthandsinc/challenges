@@ -25,16 +25,12 @@ run and what kinds of API endpoints are available.
 
 ## Requirements
 
-This is the base foundation under which we consider the app usable:
-
 - [ ] The app should start on a screen showing the list of all chats
 - [ ] The app should allow opening each chat individually
 - [ ] The app should allow sending messages to a chat
 - [ ] The app should reflect the latest messages sent to and received from the server
 
 ## Bonus
-
-Some ideas worth exploring to improve the experience:
 
 - [ ] Make the app work offline (both for app state and sending)
 - [ ] Make the app resilient to bad network conditions (retries & timeouts)
