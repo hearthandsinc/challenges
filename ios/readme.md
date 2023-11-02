@@ -44,6 +44,6 @@ run and what kinds of API endpoints are available.
 
 ## Design
 
-We have prepared a design to help you when working on this challenge.
+We have prepared a design to help you during this challenge.
 
 ![design](./design.png)
