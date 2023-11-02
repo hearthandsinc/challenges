@@ -59,7 +59,7 @@ type Chat struct {
 	ID   uint32 `json:"id"`
 	Name string `json:"name"`
 
-	messages []*Message // not sent to the clients
+	messages []*Message
 }
 
 type Message struct {
@@ -85,7 +85,7 @@ func NewApp(events *sse.Server) *App {
 
 	now := time.Now()
 
-	// store contains all the chats, manually indexed by their ID
+	// store contains all the chats, indexed by their ID
 	store := map[uint32]*Chat{}
 	for _, chat := range []*Chat{
 		{Name: "John", messages: []*Message{
@@ -98,15 +98,14 @@ func NewApp(events *sse.Server) *App {
 			{ID: newID(), Author: "bot", Text: "ok chat soon :)", SentAt: now.Add(-32 * time.Minute)},
 		}},
 		{Name: "Sarah", messages: []*Message{
-			{ID: newID(), Author: "bot", Text: "ok talk later!", SentAt: now.Add(-32 * time.Hour)},
+			{ID: newID(), Author: "bot", Text: "ok talk later!", SentAt: now.Add(-24 * time.Hour)},
 		}},
 	} {
-		chatID := newID()
-		chat.ID = chatID
+		chat.ID = newID()
 		for _, message := range chat.messages {
-			message.ChatID = chatID
+			message.ChatID = chat.ID
 		}
-		store[chatID] = chat
+		store[chat.ID] = chat
 	}
 
 	return &App{
@@ -116,19 +115,19 @@ func NewApp(events *sse.Server) *App {
 	}
 }
 
-func (a *App) GetChats(w http.ResponseWriter, r *http.Request) {
-	a.mu.RLock()
-	defer a.mu.RUnlock()
+func (app *App) GetChats(w http.ResponseWriter, r *http.Request) {
+	app.mu.RLock()
+	defer app.mu.RUnlock()
 
-	chats := maps.Values(a.store)
+	chats := maps.Values(app.store)
 
 	w.WriteHeader(http.StatusOK)
 	render.JSON(w, r, chats)
 }
 
-func (a *App) PostMessages(w http.ResponseWriter, r *http.Request) {
-	a.mu.Lock()
-	defer a.mu.Unlock()
+func (app *App) PostMessages(w http.ResponseWriter, r *http.Request) {
+	app.mu.Lock()
+	defer app.mu.Unlock()
 
 	idempotencyKey := r.Header.Get("Idempotency-Key")
 	if len(idempotencyKey) == 0 {
@@ -136,7 +135,7 @@ func (a *App) PostMessages(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if _, ok := a.idempotencyKeys[idempotencyKey]; ok {
+	if _, ok := app.idempotencyKeys[idempotencyKey]; ok {
 		w.WriteHeader(http.StatusOK)
 		return
 	}
@@ -147,7 +146,7 @@ func (a *App) PostMessages(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	chat, err := a.findChatByID(chi.URLParam(r, "chatID"))
+	chat, err := app.findChatByID(chi.URLParam(r, "chatID"))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -162,17 +161,17 @@ func (a *App) PostMessages(w http.ResponseWriter, r *http.Request) {
 	}
 
 	chat.messages = append(chat.messages, newMessage)
-	a.idempotencyKeys[idempotencyKey] = struct{}{}
-	a.publishEvent("messages", newMessage)
+	app.idempotencyKeys[idempotencyKey] = struct{}{}
+	app.publishEvent("messages", newMessage)
 
 	w.WriteHeader(http.StatusOK)
 }
 
-func (a *App) GetMessages(w http.ResponseWriter, r *http.Request) {
-	a.mu.RLock()
-	defer a.mu.RUnlock()
+func (app *App) GetMessages(w http.ResponseWriter, r *http.Request) {
+	app.mu.RLock()
+	defer app.mu.RUnlock()
 
-	chat, err := a.findChatByID(chi.URLParam(r, "chatID"))
+	chat, err := app.findChatByID(chi.URLParam(r, "chatID"))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -182,13 +181,13 @@ func (a *App) GetMessages(w http.ResponseWriter, r *http.Request) {
 	render.JSON(w, r, chat.messages)
 }
 
-func (a *App) findChatByID(rawID string) (*Chat, error) {
+func (app *App) findChatByID(rawID string) (*Chat, error) {
 	chatID, err := strconv.ParseUint(rawID, 10, 32)
 	if err != nil {
 		return nil, fmt.Errorf("invalid chat ID %s: %w", rawID, err)
 	}
 
-	chat, ok := a.store[uint32(chatID)]
+	chat, ok := app.store[uint32(chatID)]
 	if !ok {
 		return nil, fmt.Errorf("chat %s not found", rawID)
 	}
@@ -196,14 +195,14 @@ func (a *App) findChatByID(rawID string) (*Chat, error) {
 	return chat, nil
 }
 
-func (a *App) publishEvent(stream string, payload any) {
+func (app *App) publishEvent(stream string, payload any) {
 	serialized, err := json.Marshal(payload)
 	if err != nil {
 		panic(fmt.Errorf("failed to serialize payload: %w", err))
 	}
 
 	for i := 0; i < rand.Intn(3); i++ {
-		a.events.Publish(stream, &sse.Event{Data: serialized})
+		app.events.Publish(stream, &sse.Event{Data: serialized})
 	}
 }
 
