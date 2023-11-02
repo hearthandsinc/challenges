@@ -34,7 +34,7 @@ What are we expecting you to build?
 
 ## Bonus
 
-What could be implemented to improve the user experience?
+What could be implemented to improve the UX?
 
 - [ ] Make the app work offline (both for app state and sending)
 - [ ] Make the app resilient to bad network conditions (retries & timeouts)
@@ -45,7 +45,7 @@ What could be implemented to improve the user experience?
 - [ ] Avoid block changing states so the app feels fluid & snappy
 - [ ] Make the app compatible to run on iPad and macOS
 - [ ] Make the app runnable on multiple devices
-- Anything that you feel like could bring improvements!
+- [ ] _Anything_ that you feel like could improve the UX!
 
 ## Design
 
