@@ -4,33 +4,33 @@ This server is used as a companion for the iOS challenge. Persistence is
 in-memory, restarting the server will reset its state.
 
 The server will sometime be a bit capricious, you might observe:
-- fail to send a response
-- take a very long time to respond
-- send duplicate events in the message stream
+- failure to receive a response
+- server timing out when trying to send a response
+- duplicate events being received in the messages stream
 
-You should react accordingly.
+You should retry and react accordingly.
 
-## How to run the server?
+## How to start the server?
 
-1. You need to install Go on your system: [official documentation](https://go.dev/doc/install)
+1. You need to install Go on your system ([official documentation](https://go.dev/doc/install))
 2. You can then run the server with: `go run .`
 
 ## API Documentation
 
 ### Notes
 
-- All the `POST` methods expect an `Idempotency-Key` header, it must be a
-  string unique for each request (and their respective retries). [Read
-  more](https://stripe.com/docs/api/idempotent_requests). For example, a valid
-  header could be: `Idempotency-Key: 459cfe7e-5952-43a0-a0ff-b2d8f1f4cfad`.
+- All the `POST` methods expect an `Idempotency-Key` header, it must be a string
+  unique for each request (and their respective retries). For more details, see
+  [here](https://stripe.com/docs/api/idempotent_requests). A valid header could
+  be: `Idempotency-Key: 459cfe7e-5952-43a0-a0ff-b2d8f1f4cfad`.
 
 ### Methods
 
-- `GET /events?stream=message`: an SSE stream
-- `GET /chats`: list all chats
-- `POST /chats/{chat_id}/messages`: send a new message in a chat
-  * the message should be passed as a JSON payload
-- `GET /chats/{chat_id}/messages`: list all messages in a chat
+- `GET /events?stream=messages`: a [Server-Sent Events](https://en.wikipedia.org/wiki/Server-sent_events) stream that sends you new `Message`s
+- `GET /chats`: list all `Chat`s.
+- `POST /chats/{chat_id}/messages`: send a new message in a chat. Expects a `{
+  "text": "..." }` payload.
+- `GET /chats/{chat_id}/messages`: list all `Message`s in a chat
 
 ### Entities
 
