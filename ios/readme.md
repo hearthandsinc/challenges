@@ -25,20 +25,22 @@ run and what kinds of API endpoints are available.
 
 ## Requirements
 
-- [ ] The application should be composed of a single screen that list messages
-  (imagine a WhatsApp conversation)
-- [ ] This screen should display the messages as returned by the server 
-- [ ] The app should allow sending new messages
-- [ ] The server will send you messages that you must display
+- [ ] The app should start on a screen showing the list of all chats
+- [ ] The app should allow opening each individual chats
+- [ ] The app should allow sending messages to a chat
+- [ ] The app should reflect the latest messages sent to and received from the server
 
 ## Bonus
 
 - [ ] Make your app work offline (both for app state and sending)
 - [ ] Make your app resilient to bad network conditions (retries & timeouts)
-- [ ] Make your app idempotent for both what you send and what you receive
-- [ ] Make the app compatible to run on iPad and macOS
+- [ ] Make your app idempotent for both what you send and receive
+- [ ] Add support for a local read/unread indicator
 - [ ] Avoid block changing states so the app feels fluid & snappy
+- [ ] Make the app compatible to run on iPad and macOS
 
 ## Design
+
+We have prepared a design to help you when working on this challenge.
 
 ![design](./design.png)
