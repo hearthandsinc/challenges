@@ -17,11 +17,11 @@ We are expecting you to spend no more than 48 hours on this.
 ## Summary
 
 You are tasked to develop a consumer application that allows you to converse
-with a chatbot.
+with several chatbots.
 
-A server is available, you can read more about it in [`./server`](./server). The
-documentation contains informations on how to run the server and what kinds of
-API endpoints are available.
+A server is available for you to use, you can read more about it in
+[`./server`](./server). The documentation contains informations on how it can be
+run and what kinds of API endpoints are available.
 
 ## Requirements
 
@@ -38,3 +38,7 @@ API endpoints are available.
 - [ ] Make your app idempotent for both what you send and what you receive
 - [ ] Make the app compatible to run on iPad and macOS
 - [ ] Avoid block changing states so the app feels fluid & snappy
+
+## Design
+
+![design](./design.png)
