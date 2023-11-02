@@ -192,7 +192,7 @@ func (app *App) PostMessages(w http.ResponseWriter, r *http.Request) {
 	chat.messages = append(chat.messages, newMessage)
 	app.publishEvent("messages", newMessage)
 	app.idempotencyKeys[idempotencyKey] = struct{}{}
-	app.delayAnswer(chat)
+	go app.delayAnswer(chat)
 
 	w.WriteHeader(http.StatusOK)
 	render.JSON(w, r, newMessage)
@@ -224,25 +224,23 @@ func (app *App) publishEvent(stream string, payload any) {
 }
 
 func (app *App) delayAnswer(chat *Chat) {
-	go func() {
-		<-time.After(3*time.Second + time.Duration(rand.Intn(3))*time.Second)
+	<-time.After(3*time.Second + time.Duration(rand.Intn(3))*time.Second)
 
-		app.mu.Lock()
-		defer app.mu.Unlock()
+	app.mu.Lock()
+	defer app.mu.Unlock()
 
-		text := app.jokes[rand.Intn(len(app.jokes))]
+	text := app.jokes[rand.Intn(len(app.jokes))]
 
-		newMessage := &Message{
-			ID:     newID(),
-			ChatID: chat.ID,
-			Author: "bot",
-			Text:   text,
-			SentAt: time.Now(),
-		}
+	newMessage := &Message{
+		ID:     newID(),
+		ChatID: chat.ID,
+		Author: "bot",
+		Text:   text,
+		SentAt: time.Now(),
+	}
 
-		chat.messages = append(chat.messages, newMessage)
-		app.publishEvent("messages", newMessage)
-	}()
+	chat.messages = append(chat.messages, newMessage)
+	app.publishEvent("messages", newMessage)
 }
 
 //
