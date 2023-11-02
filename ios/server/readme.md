@@ -31,7 +31,7 @@ chats, and read & write messages.
 
 - `GET /events?stream=messages`: an [SSE](https://en.wikipedia.org/wiki/Server-sent_events) stream that sends you `Message` entities as they are received by the server
 - `GET /chats`: returns a list of all `Chat` entities
-- `GET /chats/{chat_id}/messages`: returns a list of the 100 most recents `Message` entities in a chat
+- `GET /chats/{chat_id}/messages`: returns a list of the 100 most recent `Message` entities in a chat
 - `POST /chats/{chat_id}/messages`: send a new message in a chat and returns
   the newly created `Message` entity. It expects a JSON payload of the form: `{ "text":
   "..." }`
