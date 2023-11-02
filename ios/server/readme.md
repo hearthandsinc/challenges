@@ -26,7 +26,7 @@ When that happens, you should retry and react accordingly.
 
 ### Methods
 
-- `GET /events?stream=messages`: an [SSE](https://en.wikipedia.org/wiki/Server-sent_events) stream that sends you `Message` as they are received by the server
+- `GET /events?stream=messages`: an [SSE](https://en.wikipedia.org/wiki/Server-sent_events) stream that sends you `Message` entities as they are received by the server
 - `GET /chats`: returns a list of all `Chat` entities.
 - `GET /chats/{chat_id}/messages`: returns a list of all `Message` entities in a chat
 - `POST /chats/{chat_id}/messages`: send a new `Message` in a chat. Expects a
@@ -40,5 +40,7 @@ When that happens, you should retry and react accordingly.
 
 #### `Message`
 - `id` (`number`): the message id
-- `author` (`string`): either the constant string `"user"` or `"bot"`
-- `text` (`string`): the actual text of the message
+- `chat_id` (`number`): the id of the chat this message belongs to
+- `author` (`string`): the message author (either the constant string `"user"` or `"bot"`)
+- `text` (`string`): the actual content of the message
+- `sent_at` (`string`): the date at which the message was sent

@@ -87,7 +87,7 @@ func NewApp(events *sse.Server) *App {
 
 	// store contains all the chats, indexed by their ID
 	store := map[uint32]*Chat{}
-	for _, chat := range []*Chat{
+	for i, chat := range []*Chat{
 		{Name: "John", messages: []*Message{
 			{ID: newID(), Author: "bot", Text: "Sounds good 👍", SentAt: now},
 		}},
@@ -101,7 +101,7 @@ func NewApp(events *sse.Server) *App {
 			{ID: newID(), Author: "bot", Text: "ok talk later!", SentAt: now.Add(-24 * time.Hour)},
 		}},
 	} {
-		chat.ID = newID()
+		chat.ID = uint32(i + 1) // we don't want to have a chat id == 0
 		for _, message := range chat.messages {
 			message.ChatID = chat.ID
 		}
