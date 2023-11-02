@@ -12,10 +12,13 @@ When that happens, you should retry and react accordingly.
 
 ## How to start the server?
 
-1. You need to install Go on your system ([official documentation](https://go.dev/doc/install))
-2. Then execute the following command: `go run .`
+1. You need to install Go on your system: follow the [official documentation](https://go.dev/doc/install)
+2. Then execute the command: `go run .`
 
 ## API Documentation
+
+This API exposes a few HTTP endpoints, and an SSE stream. It allows to list
+chats, and read & write messages.
 
 ### Notes
 
@@ -29,8 +32,9 @@ When that happens, you should retry and react accordingly.
 - `GET /events?stream=messages`: an [SSE](https://en.wikipedia.org/wiki/Server-sent_events) stream that sends you `Message` entities as they are received by the server
 - `GET /chats`: returns a list of all `Chat` entities
 - `GET /chats/{chat_id}/messages`: returns a list of the 100 most recents `Message` entities in a chat
-- `POST /chats/{chat_id}/messages`: send a new `Message` in a chat. Expects a
-  JSON payload of the form: `{ "text": "..." }`
+- `POST /chats/{chat_id}/messages`: send a new `Message` in a chat, returns the
+  newly created `Message`. It expects a JSON payload of the form: `{ "text":
+  "..." }`
 
 ### Entities
 
