@@ -52,3 +52,5 @@ What could be implemented to improve the UX?
 We have prepared a design to help you during this challenge.
 
 ![design](./design.png)
+
+Good luck, and enjoy!
