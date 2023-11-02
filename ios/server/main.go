@@ -45,8 +45,8 @@ func main() {
 		r.Use(render.SetContentType(render.ContentTypeJSON))
 		r.Use(chaosMiddleware)
 		r.Get("/chats", app.GetChats)
-		r.Post("/chats/{chatID}/messages", app.PostMessages)
 		r.Get("/chats/{chatID}/messages", app.GetMessages)
+		r.Post("/chats/{chatID}/messages", app.PostMessages)
 	})
 
 	addr := fmt.Sprintf("%s:%s", hostname, port)
