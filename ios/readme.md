@@ -1,40 +1,56 @@
 # iOS Challenge
 
-This challenge is part of the iOS hiring process at [Heart Hands,
-Inc](https://hearthands.tech/).
+This challenge is part of the iOS hiring process at [Heart
+Hands](https://hearthands.tech/).
 
 ## Why this challenge?
 
-Heart Hands is operating with a small team of talented people. We are looking
-for seasoned engineers with strong technical foundation, deep knowledge of their
-technical stack, and good product intuitions, that enjoy working on consumer
-apps.
+Heart Hands is operating with a small team of dedicated and talented people. We
+are looking for seasoned engineers with a deep technical knowledge, strong
+understanding of their technical stack, and good product intuitions to join our
+team.
 
-This challenge has been designed to give a glimpse of what it might be like when
-joining the team. And the kind of technical challenges we face and care about.
-We are expecting you to spend no more than 48 hours on this.
+This challenge has been designed to give a glimpse of what it is like to build a
+messaging app, and the kind of technical challenges we face and care about. We
+are expecting you to spend no more than 48 hours on this.
 
 ## Summary
 
-You are tasked to develop a consumer application that allows you to converse
-with a chatbot.
+You are tasked to develop a messaging app that allows to send and receive
+messages with several bots, each in their own chat.
 
-A server is available, you can read more about it in [`./server`](./server). The
-documentation contains informations on how to run the server and what kinds of
-API endpoints are available.
+A server is available for you to use, you can read more about it in
+[`./server`](./server). The documentation contains informations on how it can be
+run and what kinds of API endpoints are available.
 
 ## Requirements
 
-- [ ] The application should be composed of a single screen that list messages
-  (imagine a WhatsApp conversation)
-- [ ] This screen should display the messages as returned by the server 
-- [ ] The app should allow sending new messages
-- [ ] The server will send you messages that you must display
+What are we expecting you to build?
+
+- [ ] The app should start on a screen showing the list of all chats
+- [ ] The app should allow opening each chat individually
+- [ ] The app should allow sending messages to a chat
+- [ ] The app should reflect the messages sent to and received from the server
 
 ## Bonus
 
-- [ ] Make your app work offline (both for app state and sending)
-- [ ] Make your app resilient to bad network conditions (retries & timeouts)
-- [ ] Make your app idempotent for both what you send and what you receive
-- [ ] Make the app compatible to run on iPad and macOS
+What could be implemented to improve the UX?
+
+- [ ] Make the app work offline (both for app state and sending)
+- [ ] Make the app resilient to bad network conditions (retries & timeouts)
+- [ ] Make the app idempotent in regards to what you send and receive
+- [ ] Integrate a splashscreen to hide chats while the app is loading
+- [ ] Add support for optimisic sending to give instantaneity in the UI
+- [ ] Add support for a local read/unread indicator
 - [ ] Avoid block changing states so the app feels fluid & snappy
+- [ ] Make the app compatible to run on iPad and macOS
+- [ ] Make the app runnable on multiple devices
+- [ ] _Anything_ that you feel could improve the UX!
+
+## Design
+
+We have prepared a design to help you during this challenge.
+
+![design](./design.png)
+
+Good luck, and enjoy!
