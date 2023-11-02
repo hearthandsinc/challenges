@@ -75,6 +75,7 @@ type Chat struct {
 
 type Message struct {
 	ID     uint32    `json:"id"`
+	ChatID uint32    `json:"chat_id"`
 	Author string    `json:"author"`
 	Text   string    `json:"text"`
 	SentAt time.Time `json:"sent_at"`
@@ -97,28 +98,28 @@ func NewApp() *App {
 			ID:   0,
 			Name: "John",
 			messages: []*Message{
-				{ID: newID(), Author: "bot", Text: "Sounds good 👍", SentAt: now},
+				{ID: newID(), ChatID: 0, Author: "bot", Text: "Sounds good 👍", SentAt: now},
 			},
 		},
 		{
 			ID:   1,
 			Name: "Jessica",
 			messages: []*Message{
-				{ID: newID(), Author: "bot", Text: "How are you!?", SentAt: now.Add(-1 * time.Minute)},
+				{ID: newID(), ChatID: 1, Author: "bot", Text: "How are you!?", SentAt: now.Add(-1 * time.Minute)},
 			},
 		},
 		{
 			ID:   2,
 			Name: "Matt",
 			messages: []*Message{
-				{ID: newID(), Author: "bot", Text: "ok chat soon :)", SentAt: now.Add(-32 * time.Minute)},
+				{ID: newID(), ChatID: 2, Author: "bot", Text: "ok chat soon :)", SentAt: now.Add(-32 * time.Minute)},
 			},
 		},
 		{
 			ID:   3,
 			Name: "Sarah",
 			messages: []*Message{
-				{ID: newID(), Author: "bot", Text: "ok talk later!", SentAt: now.Add(-32 * time.Hour)},
+				{ID: newID(), ChatID: 3, Author: "bot", Text: "ok talk later!", SentAt: now.Add(-32 * time.Hour)},
 			},
 		},
 	}

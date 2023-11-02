@@ -19,8 +19,6 @@ respond, or send duplicate events in the stream. You should react accordingly.
   string unique for each request (and their respective retries). [Read
   more](https://stripe.com/docs/api/idempotent_requests). For example, a valid
   header could be: `Idempotency-Key: 459cfe7e-5952-43a0-a0ff-b2d8f1f4cfad`.
-- IDs are globally sequential and lexicographically sortable, and can be used to
-  order two messages by their sent date
 
 ### Methods
 
