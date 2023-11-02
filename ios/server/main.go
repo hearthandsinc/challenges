@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 	"math/rand"
 	"net/http"
@@ -15,6 +14,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/render"
+	"golang.org/x/exp/maps"
 )
 
 var (
@@ -33,14 +33,14 @@ func main() {
 	r.Use(render.SetContentType(render.ContentTypeJSON))
 	r.Use(func(next http.Handler) http.Handler {
 		fn := func(w http.ResponseWriter, r *http.Request) {
-			// 10% chance of unavailable
-			if rand.Intn(100) < 10 {
+			// 5% chance of unavailable
+			if rand.Intn(100) < 5 {
 				http.Error(w, "unavailable", http.StatusServiceUnavailable)
 				return
 			}
 
-			// 10% chance of timeout
-			if rand.Intn(100) < 10 {
+			// 5% chance of timeout
+			if rand.Intn(100) < 5 {
 				<-time.After(10 * time.Second)
 				http.Error(w, "timeout", http.StatusGatewayTimeout)
 				return
@@ -84,49 +84,41 @@ type Message struct {
 // App is both our controller and our data store. This coupling allows to keep
 // the implementation simple.
 type App struct {
-	mu          sync.RWMutex        // mutex to protect concurrent access
-	idempotency map[string]struct{} // store idempotency keys
-	chats       []*Chat             // chats & messages database
+	mu              sync.RWMutex        // mutex to protect concurrent access
+	idempotencyKeys map[string]struct{} // store idempotency keys
+	store           map[uint32]*Chat    // in-memory store of chats and messages
 }
 
 func NewApp() *App {
 	now := time.Now()
 
-	// chats contains all the chats, manually indexed by their ID in a slice.
-	chats := []*Chat{
-		{
-			ID:   0,
-			Name: "John",
-			messages: []*Message{
-				{ID: newID(), ChatID: 0, Author: "bot", Text: "Sounds good 👍", SentAt: now},
-			},
-		},
-		{
-			ID:   1,
-			Name: "Jessica",
-			messages: []*Message{
-				{ID: newID(), ChatID: 1, Author: "bot", Text: "How are you!?", SentAt: now.Add(-1 * time.Minute)},
-			},
-		},
-		{
-			ID:   2,
-			Name: "Matt",
-			messages: []*Message{
-				{ID: newID(), ChatID: 2, Author: "bot", Text: "ok chat soon :)", SentAt: now.Add(-32 * time.Minute)},
-			},
-		},
-		{
-			ID:   3,
-			Name: "Sarah",
-			messages: []*Message{
-				{ID: newID(), ChatID: 3, Author: "bot", Text: "ok talk later!", SentAt: now.Add(-32 * time.Hour)},
-			},
-		},
+	// store contains all the chats, manually indexed by their ID
+	store := map[uint32]*Chat{}
+	for _, chat := range []*Chat{
+		{Name: "John", messages: []*Message{
+			{ID: newID(), Author: "bot", Text: "Sounds good 👍", SentAt: now},
+		}},
+		{Name: "Jessica", messages: []*Message{
+			{ID: newID(), Author: "bot", Text: "How are you!?", SentAt: now.Add(-1 * time.Minute)},
+		}},
+		{Name: "Matt", messages: []*Message{
+			{ID: newID(), Author: "bot", Text: "ok chat soon :)", SentAt: now.Add(-32 * time.Minute)},
+		}},
+		{Name: "Sarah", messages: []*Message{
+			{ID: newID(), Author: "bot", Text: "ok talk later!", SentAt: now.Add(-32 * time.Hour)},
+		}},
+	} {
+		chatID := newID()
+		chat.ID = chatID
+		for _, message := range chat.messages {
+			message.ChatID = chatID
+		}
+		store[chatID] = chat
 	}
 
 	return &App{
-		idempotency: map[string]struct{}{},
-		chats:       chats,
+		idempotencyKeys: map[string]struct{}{},
+		store:           store,
 	}
 }
 
@@ -134,24 +126,21 @@ func (a *App) GetChats(w http.ResponseWriter, r *http.Request) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
 
-	render.JSON(w, r, a.chats)
+	chats := maps.Values(a.store)
+	render.JSON(w, r, chats)
 }
 
 func (a *App) PostMessages(w http.ResponseWriter, r *http.Request) {
 	a.mu.Lock()
 	defer a.mu.Unlock()
 
-	ok, err := a.checkIdempotencyKey(r)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	} else if ok {
+	idempotencyKey := r.Header.Get("Idempotency-Key")
+	if len(idempotencyKey) == 0 {
+		http.Error(w, "missing idempotency key", http.StatusBadRequest)
 		return
 	}
 
-	chat, err := a.getChatbyID(r)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+	if _, ok := a.idempotencyKeys[idempotencyKey]; ok {
 		return
 	}
 
@@ -161,21 +150,28 @@ func (a *App) PostMessages(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	chat, err := a.findChatByID(chi.URLParam(r, "chatID"))
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
 	chat.messages = append(chat.messages, &Message{
 		ID:     newID(),
+		ChatID: chat.ID,
 		Author: "user",
 		Text:   message.Text,
 		SentAt: time.Now(),
 	})
 
-	a.saveIdempotencyKey(r)
+	a.idempotencyKeys[idempotencyKey] = struct{}{}
 }
 
 func (a *App) GetMessages(w http.ResponseWriter, r *http.Request) {
 	a.mu.RLock()
 	defer a.mu.RUnlock()
 
-	chat, err := a.getChatbyID(r)
+	chat, err := a.findChatByID(chi.URLParam(r, "chatID"))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -184,34 +180,18 @@ func (a *App) GetMessages(w http.ResponseWriter, r *http.Request) {
 	render.JSON(w, r, chat.messages)
 }
 
-func (a *App) checkIdempotencyKey(r *http.Request) (bool, error) {
-	key := r.Header.Get("Idempotency-Key")
-	if len(key) == 0 {
-		return false, errors.New("missing Idempotency-Key header")
-	}
-
-	if _, ok := a.idempotency[key]; ok {
-		return true, nil
-	}
-
-	return false, nil
-}
-
-func (a *App) saveIdempotencyKey(r *http.Request) {
-	a.idempotency[r.Header.Get("Idempotency-Key")] = struct{}{}
-}
-
-func (a *App) getChatbyID(r *http.Request) (*Chat, error) {
-	chatID, err := strconv.ParseUint(chi.URLParam(r, "chatID"), 10, 64)
+func (a *App) findChatByID(rawID string) (*Chat, error) {
+	chatID, err := strconv.ParseUint(rawID, 10, 32)
 	if err != nil {
-		return nil, fmt.Errorf("invalid chat ID: %w", err)
+		return nil, fmt.Errorf("invalid chat ID %s: %w", rawID, err)
 	}
 
-	if chatID >= uint64(len(a.chats)) {
-		return nil, fmt.Errorf("chat ID %d not found", chatID)
+	chat, ok := a.store[uint32(chatID)]
+	if !ok {
+		return nil, fmt.Errorf("chat %s not found", rawID)
 	}
 
-	return a.chats[chatID], nil
+	return chat, nil
 }
 
 //
