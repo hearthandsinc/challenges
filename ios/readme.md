@@ -35,6 +35,7 @@ run and what kinds of API endpoints are available.
 - [ ] Make the app work offline (both for app state and sending)
 - [ ] Make the app resilient to bad network conditions (retries & timeouts)
 - [ ] Make the app idempotent in regards to what you send and receive
+- [ ] Integrate a splashscreen to hide chats while the app is loading
 - [ ] Add support for optimisic sending to give instantaneity in the UI
 - [ ] Add support for a local read/unread indicator
 - [ ] Avoid block changing states so the app feels fluid & snappy
