@@ -34,7 +34,7 @@ What are we expecting you to build?
 
 ## Bonus
 
-What could be implemented to improve to user experience?
+What could be implemented to improve the user experience?
 
 - [ ] Make the app work offline (both for app state and sending)
 - [ ] Make the app resilient to bad network conditions (retries & timeouts)
