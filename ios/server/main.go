@@ -20,8 +20,9 @@ import (
 )
 
 var (
-	hostname = envOrDefault("HOSTNAME", "localhost")
-	port     = envOrDefault("PORT", "3000")
+	hostname = envOrDefault("HOSTNAME", "localhost") // hostname used by the server
+	port     = envOrDefault("PORT", "3000")          // port used by the server
+	limit    = 100                                   // maximum number of entities returned in a single request
 )
 
 func main() {
@@ -125,6 +126,23 @@ func (app *App) GetChats(w http.ResponseWriter, r *http.Request) {
 	render.JSON(w, r, chats)
 }
 
+func (app *App) GetMessages(w http.ResponseWriter, r *http.Request) {
+	app.mu.RLock()
+	defer app.mu.RUnlock()
+
+	chat, err := app.findChatByID(chi.URLParam(r, "chatID"))
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	start := max(len(chat.messages)-limit, 0)
+	end := len(chat.messages)
+
+	w.WriteHeader(http.StatusOK)
+	render.JSON(w, r, chat.messages[start:end])
+}
+
 func (app *App) PostMessages(w http.ResponseWriter, r *http.Request) {
 	app.mu.Lock()
 	defer app.mu.Unlock()
@@ -165,20 +183,6 @@ func (app *App) PostMessages(w http.ResponseWriter, r *http.Request) {
 	app.publishEvent("messages", newMessage)
 
 	w.WriteHeader(http.StatusOK)
-}
-
-func (app *App) GetMessages(w http.ResponseWriter, r *http.Request) {
-	app.mu.RLock()
-	defer app.mu.RUnlock()
-
-	chat, err := app.findChatByID(chi.URLParam(r, "chatID"))
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-
-	w.WriteHeader(http.StatusOK)
-	render.JSON(w, r, chat.messages)
 }
 
 func (app *App) findChatByID(rawID string) (*Chat, error) {

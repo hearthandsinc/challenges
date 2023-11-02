@@ -27,8 +27,8 @@ When that happens, you should retry and react accordingly.
 ### Methods
 
 - `GET /events?stream=messages`: an [SSE](https://en.wikipedia.org/wiki/Server-sent_events) stream that sends you `Message` entities as they are received by the server
-- `GET /chats`: returns a list of all `Chat` entities.
-- `GET /chats/{chat_id}/messages`: returns a list of all `Message` entities in a chat
+- `GET /chats`: returns a list of all `Chat` entities
+- `GET /chats/{chat_id}/messages`: returns a list of the 100 most recents `Message` entities in a chat
 - `POST /chats/{chat_id}/messages`: send a new `Message` in a chat. Expects a
   JSON payload of the form: `{ "text": "..." }`
 
