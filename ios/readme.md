@@ -47,7 +47,6 @@ Some ideas worth exploring to improve the experience:
 
 ## Design
 
-We have prepared a design to help you when working on this challenge
-([Figma](https://www.figma.com/file/jyaVdqka2yAZ53b5YzkN6T/iOS-Challenge)).
+We have prepared a design to help you when working on this challenge.
 
-[![design](./design.png)](https://www.figma.com/file/jyaVdqka2yAZ53b5YzkN6T/iOS-Challenge)
+![design](./design.png)
