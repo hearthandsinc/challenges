@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"math/rand"
 	"net/http"
@@ -14,6 +15,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/render"
+	"github.com/r3labs/sse/v2"
 	"golang.org/x/exp/maps"
 )
 
@@ -23,37 +25,46 @@ var (
 )
 
 func main() {
-	app := NewApp()
+	events := sse.New()
+	events.CreateStream("message")
+
+	app := NewApp(events)
 
 	r := chi.NewRouter()
 
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
-	r.Use(middleware.Timeout(15 * time.Second))
+	r.Use(middleware.Timeout(60 * time.Second))
 	r.Use(render.SetContentType(render.ContentTypeJSON))
-	r.Use(func(next http.Handler) http.Handler {
-		fn := func(w http.ResponseWriter, r *http.Request) {
-			// 5% chance of unavailable
-			if rand.Intn(100) < 5 {
-				http.Error(w, "unavailable", http.StatusServiceUnavailable)
-				return
-			}
 
-			// 5% chance of timeout
-			if rand.Intn(100) < 5 {
-				<-time.After(10 * time.Second)
-				http.Error(w, "timeout", http.StatusGatewayTimeout)
-				return
-			}
+	r.Handle("/events", http.HandlerFunc(events.ServeHTTP))
 
-			next.ServeHTTP(w, r)
-		}
-		return http.HandlerFunc(fn)
+	r.Group(func(r chi.Router) {
+		// chaos middleware
+		r.Use(func(next http.Handler) http.Handler {
+			fn := func(w http.ResponseWriter, r *http.Request) {
+				// 5% chance of unavailable
+				if rand.Intn(100) < 5 {
+					http.Error(w, "unavailable", http.StatusServiceUnavailable)
+					return
+				}
+
+				// 5% chance of timeout
+				if rand.Intn(100) < 5 {
+					<-time.After(10 * time.Second)
+					http.Error(w, "timeout", http.StatusGatewayTimeout)
+					return
+				}
+
+				next.ServeHTTP(w, r)
+			}
+			return http.HandlerFunc(fn)
+		})
+
+		r.Get("/chats", app.GetChats)
+		r.Post("/chats/{chatID}/messages", app.PostMessages)
+		r.Get("/chats/{chatID}/messages", app.GetMessages)
 	})
-
-	r.Get("/chats", app.GetChats)
-	r.Post("/chats/{chatID}/messages", app.PostMessages)
-	r.Get("/chats/{chatID}/messages", app.GetMessages)
 
 	addr := fmt.Sprintf("%s:%s", hostname, port)
 	fmt.Printf("Starting server on %s\n", addr)
@@ -84,12 +95,14 @@ type Message struct {
 // App is both our controller and our data store. This coupling allows to keep
 // the implementation simple.
 type App struct {
-	mu              sync.RWMutex        // mutex to protect concurrent access
+	events *sse.Server // server-sent events server
+
+	mu              sync.RWMutex
 	idempotencyKeys map[string]struct{} // store idempotency keys
 	store           map[uint32]*Chat    // in-memory store of chats and messages
 }
 
-func NewApp() *App {
+func NewApp(events *sse.Server) *App {
 	now := time.Now()
 
 	// store contains all the chats, manually indexed by their ID
@@ -117,6 +130,7 @@ func NewApp() *App {
 	}
 
 	return &App{
+		events:          events,
 		idempotencyKeys: map[string]struct{}{},
 		store:           store,
 	}
@@ -127,6 +141,8 @@ func (a *App) GetChats(w http.ResponseWriter, r *http.Request) {
 	defer a.mu.RUnlock()
 
 	chats := maps.Values(a.store)
+
+	w.WriteHeader(http.StatusOK)
 	render.JSON(w, r, chats)
 }
 
@@ -141,6 +157,7 @@ func (a *App) PostMessages(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if _, ok := a.idempotencyKeys[idempotencyKey]; ok {
+		w.WriteHeader(http.StatusOK)
 		return
 	}
 
@@ -156,15 +173,23 @@ func (a *App) PostMessages(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	chat.messages = append(chat.messages, &Message{
+	newMessage := &Message{
 		ID:     newID(),
 		ChatID: chat.ID,
 		Author: "user",
 		Text:   message.Text,
 		SentAt: time.Now(),
-	})
+	}
 
+	chat.messages = append(chat.messages, newMessage)
 	a.idempotencyKeys[idempotencyKey] = struct{}{}
+
+	if err := a.publishEvent("message", newMessage); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
 }
 
 func (a *App) GetMessages(w http.ResponseWriter, r *http.Request) {
@@ -177,6 +202,7 @@ func (a *App) GetMessages(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.WriteHeader(http.StatusOK)
 	render.JSON(w, r, chat.messages)
 }
 
@@ -192,6 +218,19 @@ func (a *App) findChatByID(rawID string) (*Chat, error) {
 	}
 
 	return chat, nil
+}
+
+func (a *App) publishEvent(stream string, payload any) error {
+	serialized, err := json.Marshal(payload)
+	if err != nil {
+		return fmt.Errorf("failed to serialize payload: %w", err)
+	}
+
+	for i := 0; i < rand.Intn(3); i++ {
+		a.events.Publish(stream, &sse.Event{Data: serialized})
+	}
+
+	return nil
 }
 
 //

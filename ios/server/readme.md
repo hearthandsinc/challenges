@@ -3,8 +3,12 @@
 This server is used as a companion for the iOS challenge. Persistence is
 in-memory, restarting the server will reset its state.
 
-The server will sometime fail to send a response, take a very long time to
-respond, or send duplicate events in the stream. You should react accordingly.
+The server will sometime be a bit capricious, you might observe:
+- fail to send a response
+- take a very long time to respond
+- send duplicate events in the message stream
+
+You should react accordingly.
 
 ## How to run the server?
 
@@ -22,10 +26,8 @@ respond, or send duplicate events in the stream. You should react accordingly.
 
 ### Methods
 
-**Chats:**
+- `GET /events?stream=message`: an SSE stream
 - `GET /chats`: list all chats
-
-**Messages:**
 - `POST /chats/{chat_id}/messages`: send a new message in a chat
   * the message should be passed as a JSON payload
 - `GET /chats/{chat_id}/messages`: list all messages in a chat
