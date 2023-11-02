@@ -1,7 +1,7 @@
 # iOS Challenge
 
-This challenge is part of the iOS hiring process at [Heart Hands,
-Inc](https://hearthands.tech/).
+This challenge is part of the iOS hiring process at [Heart
+Hands](https://hearthands.tech/).
 
 ## Why this challenge?
 
