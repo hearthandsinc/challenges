@@ -198,6 +198,26 @@ func (app *App) PostMessages(w http.ResponseWriter, r *http.Request) {
 	render.JSON(w, r, newMessage)
 }
 
+func (app *App) delayAnswer(chat *Chat) {
+	<-time.After(3*time.Second + time.Duration(rand.Intn(3))*time.Second)
+
+	app.mu.Lock()
+	defer app.mu.Unlock()
+
+	text := app.jokes[rand.Intn(len(app.jokes))]
+
+	newMessage := &Message{
+		ID:     newID(),
+		ChatID: chat.ID,
+		Author: "bot",
+		Text:   text,
+		SentAt: time.Now(),
+	}
+
+	chat.messages = append(chat.messages, newMessage)
+	app.publishEvent("messages", newMessage)
+}
+
 func (app *App) findChatByID(rawID string) (*Chat, error) {
 	chatID, err := strconv.ParseUint(rawID, 10, 32)
 	if err != nil {
@@ -221,26 +241,6 @@ func (app *App) publishEvent(stream string, payload any) {
 	for i := 0; i <= rand.Intn(3); i++ {
 		app.events.Publish(stream, &sse.Event{Data: serialized})
 	}
-}
-
-func (app *App) delayAnswer(chat *Chat) {
-	<-time.After(3*time.Second + time.Duration(rand.Intn(3))*time.Second)
-
-	app.mu.Lock()
-	defer app.mu.Unlock()
-
-	text := app.jokes[rand.Intn(len(app.jokes))]
-
-	newMessage := &Message{
-		ID:     newID(),
-		ChatID: chat.ID,
-		Author: "bot",
-		Text:   text,
-		SentAt: time.Now(),
-	}
-
-	chat.messages = append(chat.messages, newMessage)
-	app.publishEvent("messages", newMessage)
 }
 
 //
