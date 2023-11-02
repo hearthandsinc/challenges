@@ -45,7 +45,7 @@ What could be implemented to improve the UX?
 - [ ] Avoid block changing states so the app feels fluid & snappy
 - [ ] Make the app compatible to run on iPad and macOS
 - [ ] Make the app runnable on multiple devices
-- [ ] _Anything_ that you feel like could improve the UX!
+- [ ] _Anything_ that you feel could improve the UX!
 
 ## Design
 
