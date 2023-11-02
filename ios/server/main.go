@@ -26,8 +26,6 @@ var (
 
 func main() {
 	events := sse.New()
-	events.CreateStream("message")
-
 	app := NewApp(events)
 
 	r := chi.NewRouter()
@@ -83,6 +81,8 @@ type App struct {
 }
 
 func NewApp(events *sse.Server) *App {
+	events.CreateStream("message")
+
 	now := time.Now()
 
 	// store contains all the chats, manually indexed by their ID
