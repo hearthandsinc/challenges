@@ -6,9 +6,9 @@ Hands](https://hearthands.tech/).
 ## Why this challenge?
 
 Heart Hands is operating with a small team of talented people. We are looking
-for seasoned engineers with strong technical foundation, deep knowledge of their
-technical stack, and good product intuitions, that enjoy working on consumer
-apps.
+for seasoned engineers with a strong technical foundation, deep knowledge of
+their technical stack, and good product intuitions, that enjoy working on
+consumer apps.
 
 This challenge has been designed to give a glimpse of what it might be like when
 joining the team. And the kind of technical challenges we face and care about.
