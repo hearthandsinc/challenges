@@ -22,12 +22,12 @@ chats, and read & write messages.
 
 ### Notes
 
-- All the `POST` methods expect an `Idempotency-Key` header, it must be a string
+- All the `POST` endpoints expect an `Idempotency-Key` header, it must be a string
   unique to each request (and their respective retries). For more details, see
   [here](https://stripe.com/docs/api/idempotent_requests). A valid header could
   be: `Idempotency-Key: 459cfe7e-5952-43a0-a0ff-b2d8f1f4cfad`.
 
-### Methods
+### Endpoints
 
 - `GET /events?stream=messages`: an [SSE](https://en.wikipedia.org/wiki/Server-sent_events) stream that sends you `Message` entities as they are received by the server
 - `GET /chats`: returns a list of all `Chat` entities
