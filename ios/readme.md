@@ -38,6 +38,7 @@ run and what kinds of API endpoints are available.
 - [ ] Add support for a local read/unread indicator
 - [ ] Avoid block changing states so the app feels fluid & snappy
 - [ ] Make the app compatible to run on iPad and macOS
+- [ ] Make the app runnable on multiple devices
 
 ## Design
 

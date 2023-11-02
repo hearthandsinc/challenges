@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "embed"
 	"encoding/json"
 	"fmt"
 	"math/rand"
@@ -24,6 +25,9 @@ var (
 	port     = envOrDefault("PORT", "3000")          // port used by the server
 	limit    = 100                                   // maximum number of entities returned in a single request
 )
+
+//go:embed data.json
+var dataJSON []byte
 
 func main() {
 	events := sse.New()
@@ -75,6 +79,7 @@ type Message struct {
 // the implementation simple.
 type App struct {
 	events *sse.Server // server-sent events server
+	jokes  []string    // jokes to send
 
 	mu              sync.RWMutex
 	idempotencyKeys map[string]struct{} // store idempotency keys
@@ -82,6 +87,11 @@ type App struct {
 }
 
 func NewApp(events *sse.Server) *App {
+	var jokes []string
+	if err := json.Unmarshal(dataJSON, &jokes); err != nil {
+		panic(fmt.Errorf("failed to unmarshal data: %w", err))
+	}
+
 	events.CreateStream("messages")
 
 	now := time.Now()
@@ -111,6 +121,7 @@ func NewApp(events *sse.Server) *App {
 
 	return &App{
 		events:          events,
+		jokes:           jokes,
 		idempotencyKeys: map[string]struct{}{},
 		store:           store,
 	}
@@ -179,10 +190,12 @@ func (app *App) PostMessages(w http.ResponseWriter, r *http.Request) {
 	}
 
 	chat.messages = append(chat.messages, newMessage)
-	app.idempotencyKeys[idempotencyKey] = struct{}{}
 	app.publishEvent("messages", newMessage)
+	app.idempotencyKeys[idempotencyKey] = struct{}{}
+	app.delayAnswer(chat)
 
 	w.WriteHeader(http.StatusOK)
+	render.JSON(w, r, newMessage)
 }
 
 func (app *App) findChatByID(rawID string) (*Chat, error) {
@@ -205,9 +218,31 @@ func (app *App) publishEvent(stream string, payload any) {
 		panic(fmt.Errorf("failed to serialize payload: %w", err))
 	}
 
-	for i := 0; i < rand.Intn(3); i++ {
+	for i := 0; i <= rand.Intn(3); i++ {
 		app.events.Publish(stream, &sse.Event{Data: serialized})
 	}
+}
+
+func (app *App) delayAnswer(chat *Chat) {
+	go func() {
+		<-time.After(3*time.Second + time.Duration(rand.Intn(3))*time.Second)
+
+		app.mu.Lock()
+		defer app.mu.Unlock()
+
+		text := app.jokes[rand.Intn(len(app.jokes))]
+
+		newMessage := &Message{
+			ID:     newID(),
+			ChatID: chat.ID,
+			Author: "bot",
+			Text:   text,
+			SentAt: time.Now(),
+		}
+
+		chat.messages = append(chat.messages, newMessage)
+		app.publishEvent("messages", newMessage)
+	}()
 }
 
 //
