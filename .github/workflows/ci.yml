@@ -18,10 +18,10 @@ jobs:
           go-version: ${{ env.GO_VERSION }}
       - name: Lint go code
         uses: golangci/golangci-lint-action@v3
-        working-directory: ./ios/server
         with:
           version: ${{ env.GOLANGCI_LINT_VERSION }}
           skip-cache: true
+          working-directory: ./ios/server
 
   build:
     runs-on: ubuntu-latest
