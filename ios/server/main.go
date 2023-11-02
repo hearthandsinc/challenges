@@ -40,27 +40,7 @@ func main() {
 	r.Handle("/events", http.HandlerFunc(events.ServeHTTP))
 
 	r.Group(func(r chi.Router) {
-		// chaos middleware
-		r.Use(func(next http.Handler) http.Handler {
-			fn := func(w http.ResponseWriter, r *http.Request) {
-				// 5% chance of unavailable
-				if rand.Intn(100) < 5 {
-					http.Error(w, "unavailable", http.StatusServiceUnavailable)
-					return
-				}
-
-				// 5% chance of timeout
-				if rand.Intn(100) < 5 {
-					<-time.After(10 * time.Second)
-					http.Error(w, "timeout", http.StatusGatewayTimeout)
-					return
-				}
-
-				next.ServeHTTP(w, r)
-			}
-			return http.HandlerFunc(fn)
-		})
-
+		r.Use(chaosMiddleware)
 		r.Get("/chats", app.GetChats)
 		r.Post("/chats/{chatID}/messages", app.PostMessages)
 		r.Get("/chats/{chatID}/messages", app.GetMessages)
@@ -252,4 +232,24 @@ func envOrDefault(key string, defaultValue string) string {
 		return v
 	}
 	return defaultValue
+}
+
+func chaosMiddleware(next http.Handler) http.Handler {
+	fn := func(w http.ResponseWriter, r *http.Request) {
+		// 5% chance of unavailable
+		if rand.Intn(100) < 5 {
+			http.Error(w, "unavailable", http.StatusServiceUnavailable)
+			return
+		}
+
+		// 5% chance of timeout
+		if rand.Intn(100) < 5 {
+			<-time.After(10 * time.Second)
+			http.Error(w, "timeout", http.StatusGatewayTimeout)
+			return
+		}
+
+		next.ServeHTTP(w, r)
+	}
+	return http.HandlerFunc(fn)
 }
