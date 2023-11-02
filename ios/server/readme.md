@@ -1,4 +1,4 @@
-# iOS - Simple Server
+# iOS Challenge - Server Companion
 
 This server is used as a companion for the iOS challenge. Persistence is
 in-memory, restarting the server will reset its state.
