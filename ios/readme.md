@@ -26,7 +26,7 @@ run and what kinds of API endpoints are available.
 ## Requirements
 
 - [ ] The app should start on a screen showing the list of all chats
-- [ ] The app should allow opening each individual chats
+- [ ] The app should allow opening each chat individually
 - [ ] The app should allow sending messages to a chat
 - [ ] The app should reflect the latest messages sent to and received from the server
 
