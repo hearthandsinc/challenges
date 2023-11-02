@@ -192,13 +192,13 @@ func (app *App) PostMessages(w http.ResponseWriter, r *http.Request) {
 	chat.messages = append(chat.messages, newMessage)
 	app.publishEvent("messages", newMessage)
 	app.idempotencyKeys[idempotencyKey] = struct{}{}
-	go app.delayAnswer(chat)
+	go app.sendDelayedAnswer(chat)
 
 	w.WriteHeader(http.StatusOK)
 	render.JSON(w, r, newMessage)
 }
 
-func (app *App) delayAnswer(chat *Chat) {
+func (app *App) sendDelayedAnswer(chat *Chat) {
 	<-time.After(3*time.Second + time.Duration(rand.Intn(3))*time.Second)
 
 	app.mu.Lock()
