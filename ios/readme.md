@@ -25,12 +25,16 @@ run and what kinds of API endpoints are available.
 
 ## Requirements
 
+What are we expecting you to build?
+
 - [ ] The app should start on a screen showing the list of all chats
 - [ ] The app should allow opening each chat individually
 - [ ] The app should allow sending messages to a chat
 - [ ] The app should reflect the messages sent to and received from the server
 
 ## Bonus
+
+What could be implemented to improve to user experience?
 
 - [ ] Make the app work offline (both for app state and sending)
 - [ ] Make the app resilient to bad network conditions (retries & timeouts)
