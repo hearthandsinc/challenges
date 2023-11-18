@@ -22,7 +22,7 @@ You might want to allow the server to be reached from another machine
 
 1. You need to install Ngrok on your system: follow the [official
    documentation](https://ngrok.com/download)
-2. Then, after having started the server (see above), execute the command: 
+2. Then, after having started the server (see above), execute the command: `ngrok http 3000`
 
 This will give you a public URL of the form
 `https://9f98-62-194-145-77.ngrok.io`, that can be used to reach your server
