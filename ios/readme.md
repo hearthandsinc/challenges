@@ -10,19 +10,19 @@ are looking for seasoned engineers with a deep technical knowledge, strong
 understanding of their technical stack, and excellent product intuitions to join
 our team.
 
-This challenge has been designed to give a glimpse of what it is like to build a
+This exercise has been designed to give a glimpse of what it is like to build a
 messaging app, and the kind of technical challenges we face and care about. We
 know time is precious, and we are expecting you to spend no more than 48 hours
 on this.
 
 ## Summary
 
-You are tasked to develop a messaging app that allows to send and receive
-messages with several bots, each in their own chat.
+You are tasked with the implementation of a messaging app that allows to send
+and receive messages with several bots, each in their own chat.
 
-A server is available for you to use, you can read more about it in
-[`./server`](./server). The documentation contains informations on how it can be
-run and what kinds of API endpoints are available.
+A server is available for you to use. You can read more about it in
+[`./server`](./server). Its documentation contains informations on how it can be
+run, and what kinds of API endpoints & entities are available.
 
 ## Requirements
 
@@ -35,7 +35,7 @@ What are we expecting you to build?
 
 ## Bonus
 
-A few topics to look at if you want to dive deeper:
+Some topics to look at if you are looking for ideas to dive deeper:
 
 - [ ] Make the app work offline (both for app state and sending)
 - [ ] Make the app resilient to bad network conditions (retries & timeouts)
