@@ -30,7 +30,7 @@ from any system that has an internet connection.
 
 ## API Documentation
 
-This API exposes a few HTTP endpoints, and an SSE stream. It allows to list
+This API exposes a few HTTP endpoints and an SSE stream. It allows to list
 chats, and read & write messages.
 
 ### Notes
