@@ -15,7 +15,7 @@ messaging app, and the kind of technical challenges we face and care about. We
 know time is precious, and we are expecting you to spend no more than 48 hours
 on this.
 
-## Summary
+## Instructions
 
 You are tasked with the implementation of a messaging app that allows to send
 and receive messages with several bots, each in their own chat.
@@ -35,7 +35,7 @@ What are we expecting you to build?
 
 ## Bonus
 
-Some topics to look at if you are looking for ideas to dive deeper:
+Some topics to look at to dive deeper:
 
 - [ ] Make the app work offline (both for app state and sending)
 - [ ] Make the app resilient to bad network conditions (retries & timeouts)
@@ -58,11 +58,11 @@ receive the Figma link along with the challenge instructions.
 ## Challenge Review
 
 We know it's a short amount of time, and you will have to prioritize what you
-spend time on. A few things that are important for us and that we will consider
-during the review:
-- structure: is the code easy to maintain and easy to evolve?
-- robustness: is the code tested (or testable, we don't expect 100% code
-coverage here)
-- documentation: is the readme clear and are important parts of the code documented?
+spend time on. A few things that are important for us and that will be
+considered during the review:
+- collaboration: is the code easy to read, maintain, and evolve?
+- features: what did you prioritize to maximize your impact?
+- testability: is the code tested or easily testable?
+- documentation: is the readme clear? are important parts of the code documented? can we follow your thought process with your commits?
 
 Good luck, and enjoy!
