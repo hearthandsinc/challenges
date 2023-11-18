@@ -44,7 +44,7 @@ Some topics to look at to dive deeper:
 - [ ] Add support for Email forwarding to relay the messages to the users email addresses
 - [ ] Make the backend idempotent in regards to what you receive
 - [ ] Add support for a read/unread message status
-- [ ] Users should be able to receive messages as they are sent
+- [ ] Users should be able to instantly receive messages as they are sent
 
 ## What we look at
 
