@@ -20,22 +20,36 @@ on this.
 You are tasked with implementing the backend of a messaging app that allows
 users to send and receive messages in private 1:1 chats.
 
-You must use Go. You are free to choose your database, network protocol, and
-design your API as you see fit.
+The only constraint you are given is that you must use Go. For the rest, you are
+free to choose your data layer, network protocol, and design your API as you see
+fit. You are purposefully being given a lot of freedom here, and you will not be
+judged on these decisions alone. But we are expecting you to understand the
+trade-offs you make.
 
 ## Requirements
 
 What are we expecting you to build?
 
 - [ ] Users should be able to authenticate with their phone numbers
-- [ ] A user should be able to:
-  - Receive all the messages sent from other users
-  - Send a message to another user
+- [ ] Users should be able receive messages from other users
+- [ ] Users should be able to send messages to other users
 
 ## Bonus
 
+A few topics to look at if you want to dive deeper:
+
+- [ ] Users should be able to authenticate with their email address
 - [ ] Write tests that assert the functional scope of your server
-- [ ] Implementing SMS forwarding to send the messages to the users phone numbers
-- [ ] Implementing Email forwarding to send the messages to the users email addresses
+- [ ] Add support for SMS forwarding to send the messages to the users phone numbers
+- [ ] Add support for Email forwarding to send the messages to the users email addresses
+
+## What we look at
+
+We know it's a short amount of time, and you will have to prioritize what you
+spend time on. A few things that are important for us and that we will consider
+during the review:
+- the way the code is structured, is it maintainable and evolutive?
+- the way the code is tested / can be tested (100% code coverage is not the goal)
+- the way the code is commented or documented
 
 Good luck, and enjoy!

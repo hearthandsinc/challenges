@@ -35,6 +35,8 @@ What are we expecting you to build?
 
 ## Bonus
 
+A few topics to look at if you want to dive deeper:
+
 - [ ] Make the app work offline (both for app state and sending)
 - [ ] Make the app resilient to bad network conditions (retries & timeouts)
 - [ ] Make the app idempotent in regards to what you send and receive
@@ -52,5 +54,14 @@ We have prepared a design to help you during this challenge. You will also
 receive the Figma link along with the challenge instructions.
 
 ![design](./design.png)
+
+## Challenge Review
+
+We know it's a short amount of time, and you will have to prioritize what you
+spend time on. A few things that are important for us and that we will consider
+during the review:
+- the way the code is structured, is it maintainable and evolutive?
+- the way the code is tested / can be tested (100% code coverage is not the goal)
+- the way the code is commented or documented
 
 Good luck, and enjoy!
