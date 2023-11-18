@@ -49,7 +49,7 @@ We know it's a short amount of time, and you will have to prioritize what you
 spend time on. A few things that are important for us and that we will consider
 during the review:
 - structure: is the code easy to maintain and easy to evolve?
-- robustness: is the code linted, tested (or testable, we don't expect 100% code
+- robustness: is the code tested (or testable, we don't expect 100% code
 coverage here)
 - documentation: is the readme clear and are important parts of the code documented?
 
