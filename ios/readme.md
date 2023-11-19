@@ -24,7 +24,7 @@ A server is available for you to use. You can read more about it in
 [`./server`](./server). Its documentation contains informations on how it can be
 run, and what kinds of API endpoints & entities are available.
 
-Functional requirements:
+These are the functional requirements we will check for:
 
 - [ ] The app should start on a screen showing the list of all chats
 - [ ] The app should allow opening each chat individually
