@@ -38,7 +38,7 @@ Functional requirements:
 
 Some topics that we find interesting to dig:
 
-- [ ] Choose a network protocol that enables soft real-time message delivery to clients
+- [ ] Choose a network protocol that enables soft real-time message delivery to the clients
 - [ ] Make the server message ingestion idempotent
 - [ ] Add support for sent/delivered/read message status
 - [ ] Add support for chats and messages pagination
