@@ -39,7 +39,7 @@ Some topics to look at to dive deeper:
 - [ ] Make the app work offline (both for app state and sending)
 - [ ] Make the app idempotent in regards to what you send and receive
 - [ ] Integrate a splashscreen to hide chats while the app is loading
-- [ ] Add support for optimisic sending to give instantaneity in the UI
+- [ ] Add support for optimistic sending to give instantaneity in the UI
 - [ ] Add support for a local read/unread indicator
 - [ ] Avoid block changing states so the app feels fluid & snappy
 - [ ] Make the app compatible to run on iPad and macOS
