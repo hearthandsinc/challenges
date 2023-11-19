@@ -17,7 +17,8 @@ are expecting you to spend between 4 and 6 hours on this challenge.
 ## Instructions
 
 You are tasked with the implementation of an iOS messaging app that allows to
-send and receive text messages with several bots, each in their own 1:1 chat.
+communicate (send and receive text messages) with bots, each in their own 1:1
+chat.
 
 A server is available for you to use. You can read more about it in
 [`./server`](./server). Its documentation contains informations on how it can be
