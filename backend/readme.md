@@ -49,10 +49,10 @@ Some topics that we find interesting to dig:
 We know you only have a limited time alloted to deliver this challenge, and thus
 will have to prioritize what you work on. A few things that are important for us
 and that will be considered during the review:
-- **maintainability**: is the code well-organized, easy to read & evolve?
-- **features**: what did you prioritize to maximize your impact?
+- **features**: which features did you prioritize to maximize your impact?
+- **maintainability**: is the code well-structured and easy to read/update?
 - **testability**: is the code tested or easily testable?
 - **documentation**: is the readme clear? are important parts of the code
-  documented? can we follow your thought process by looking at the git history?
+  documented?
 
 Good luck, and enjoy!
