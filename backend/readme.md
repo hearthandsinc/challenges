@@ -25,7 +25,7 @@ purposefully being given a lot of freedom here, and you will not be judged on
 these decisions alone, but we will challenge the understanding of the trade-offs
 you make.
 
-These are the functional requirements we will check for:
+Functional requirements:
 
 - [ ] Clients should be able to uniquely identify themselves with a unique phone number (without authentication)
 - [ ] Clients should be able to send messages to other clients
