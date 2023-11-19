@@ -58,9 +58,10 @@ receive the Figma link along with the challenge instructions.
 We know you only have a limited time alloted to deliver this challenge, and thus
 will have to prioritize what you work on. A few things that are important for us
 and that will be considered during the review:
-- collaboration: is the code easy to read, maintain, and evolve?
-- features: what did you prioritize to maximize your impact?
-- testability: is the code tested or easily testable?
-- documentation: is the readme clear? are important parts of the code documented? can we follow your thought process by looking at the git history?
+- **collaboration**: is the code easy to read, maintain, and evolve?
+- **features**: what did you prioritize to maximize your impact?
+- **testability**: is the code tested or easily testable?
+- **documentation**: is the readme clear? are important parts of the code
+  documented? can we follow your thought process by looking at the git history?
 
 Good luck, and enjoy!
