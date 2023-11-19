@@ -10,9 +10,9 @@ are looking for seasoned engineers with a deep technical knowledge, strong
 understanding of their technical stack, and excellent product intuitions to join
 our team.
 
-This exercise has been designed to give a glimpse of what it is like to build a
-messaging app, and the kind of technical challenges we face and care about. We
-are expecting you to spend between 4 and 6 hours on this challenge.
+This exercise has been designed to give a glimpse of what it is like to build an
+iOS messaging app, and the kind of technical challenges we face and care about.
+We are expecting you to spend between 4 and 6 hours on this challenge.
 
 ## Instructions
 
