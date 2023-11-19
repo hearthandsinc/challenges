@@ -58,10 +58,11 @@ receive the Figma link along with the challenge instructions.
 We know you only have a limited time alloted to deliver this challenge, and thus
 will have to prioritize what you work on. A few things that are important for us
 and that will be considered during the review:
-- **impact**: which features did you prioritize?
-- **maintainability**: is the code well-structured and easy to read/evolve?
-- **testability**: is the code tested or easily testable?
 - **documentation**: is the readme clear? are important parts of the code
   documented?
+- **impact**: which features did you prioritize?
+- **maintainability**: is the code well-structured and easy to read/evolve?
+- **robustness**: is the code tested or easily testable? are edge-cases
+  considered? is static analysis leveraged?
 
 Good luck, and enjoy!
