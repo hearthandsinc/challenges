@@ -37,7 +37,7 @@ Functional requirements:
 Some topics that we find interesting to dig:
 
 - [ ] Implement SMS authentication to verify the clients phone numbers & add
-sessions
+      clients sessions
 - [ ] Choose a network protocol that enables soft real-time message delivery to clients
 - [ ] Support SMS forwarding to relay the messages to the clients phone numbers
 - [ ] Support Email forwarding to relay the messages to the clients email addresses
