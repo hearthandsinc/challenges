@@ -55,9 +55,9 @@ receive the Figma link along with the challenge instructions.
 
 ## Challenge Review
 
-We know you are going to spend a limited time on this challenge, and thus will
-have to prioritize what you work on. A few things that are important for us and
-that will be considered during the review:
+We know you only have a limited time alloted to deliver this challenge, and thus
+will have to prioritize what you work on. A few things that are important for us
+and that will be considered during the review:
 - collaboration: is the code easy to read, maintain, and evolve?
 - features: what did you prioritize to maximize your impact?
 - testability: is the code tested or easily testable?
