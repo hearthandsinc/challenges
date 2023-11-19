@@ -38,13 +38,12 @@ Functional requirements:
 
 Some topics that we find interesting to dig:
 
-- [ ] Implement SMS authentication to verify the clients phone numbers & add
-      clients sessions
 - [ ] Choose a network protocol that enables soft real-time message delivery to clients
-- [ ] Support SMS forwarding to relay the messages to the clients phone numbers
 - [ ] Make the server message ingestion idempotent
 - [ ] Add support for sent/delivered/read message status
 - [ ] Add support for chats and messages pagination
+- [ ] Implement SMS authentication to authenticate the clients
+- [ ] Support SMS forwarding to relay the messages to the clients phone numbers
 
 ## Challenge Review
 
