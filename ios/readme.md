@@ -30,7 +30,7 @@ Functional requirements:
 - [ ] The app should allow opening each chat individually
 - [ ] The app should allow sending messages to a chat
 - [ ] The app should reflect the messages sent to and received from the server
-- [ ] The app should be resilient to bad network conditions (retries & timeouts)
+- [ ] The app should be resilient to bad network conditions (drops & timeouts)
 
 ## Bonus
 
