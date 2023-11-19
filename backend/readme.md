@@ -42,7 +42,7 @@ Some topics that we find interesting to dig:
 - [ ] Make the server message ingestion idempotent
 - [ ] Add support for sent/delivered/read message status
 - [ ] Add support for chats and messages pagination
-- [ ] Implement SMS authentication to authenticate the clients
+- [ ] Implement SMS phone number verification to authenticate the clients
 - [ ] Support SMS forwarding to relay the messages to the clients phone numbers
 
 ## Challenge Review
