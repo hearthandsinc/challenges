@@ -30,13 +30,13 @@ Functional requirements:
 - [ ] The app should allow opening each chat individually
 - [ ] The app should allow sending messages to a chat
 - [ ] The app should reflect the messages sent to and received from the server
+- [ ] The app should be resilient to bad network conditions (retries & timeouts)
 
 ## Bonus
 
 Some topics to look at to dive deeper:
 
 - [ ] Make the app work offline (both for app state and sending)
-- [ ] Make the app resilient to bad network conditions (retries & timeouts)
 - [ ] Make the app idempotent in regards to what you send and receive
 - [ ] Integrate a splashscreen to hide chats while the app is loading
 - [ ] Add support for optimisic sending to give instantaneity in the UI
