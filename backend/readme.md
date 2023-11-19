@@ -49,7 +49,7 @@ Some topics that we find interesting to dig:
 We know you only have a limited time alloted to deliver this challenge, and thus
 will have to prioritize what you work on. A few things that are important for us
 and that will be considered during the review:
-- **features**: which features did you prioritize to maximize your impact?
+- **impact**: which features did you prioritize?
 - **maintainability**: is the code well-structured and easy to read/update?
 - **testability**: is the code tested or easily testable?
 - **documentation**: is the readme clear? are important parts of the code
