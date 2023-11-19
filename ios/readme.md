@@ -34,7 +34,7 @@ Functional requirements:
 
 ## Bonus
 
-Some topics to look at to dive deeper:
+Some topics that we find interesting to dig:
 
 - [ ] Make the app work offline (both for app state and sending)
 - [ ] Make the app idempotent in regards to what you send and receive

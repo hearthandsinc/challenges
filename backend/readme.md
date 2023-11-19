@@ -34,7 +34,7 @@ Functional requirements:
 
 ## Bonus
 
-Some topics to look at to dive deeper:
+Some topics that we find interesting to dig:
 
 - [ ] Allow clients to authenticate with their phone number
 - [ ] Add support for paginated chats and messages
