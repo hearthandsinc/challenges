@@ -40,7 +40,6 @@ Some topics that we find interesting to dig:
       clients sessions
 - [ ] Choose a network protocol that enables soft real-time message delivery to clients
 - [ ] Support SMS forwarding to relay the messages to the clients phone numbers
-- [ ] Support Email forwarding to relay the messages to the clients email addresses
 - [ ] Make the server message ingestion idempotent
 - [ ] Add support for sent/delivered/read message status
 - [ ] Add support for chats and messages pagination
