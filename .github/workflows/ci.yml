@@ -11,8 +11,8 @@ on:
       - "**.md"
 
 env:
-  GO_VERSION: "1.21.3" # https://go.dev/dl/
-  GOLANGCI_LINT_VERSION: "v1.55.1" # https://github.com/golangci/golangci-lint/releases
+  GO_VERSION: "1.21.4" # https://go.dev/dl/
+  GOLANGCI_LINT_VERSION: "v1.55.2" # https://github.com/golangci/golangci-lint/releases
 
 jobs:
   lint:
@@ -28,6 +28,14 @@ jobs:
           version: ${{ env.GOLANGCI_LINT_VERSION }}
           skip-cache: true
           working-directory: ./ios/server
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: golang/govulncheck-action@v1
+        with:
+          go-version-input: ${{ env.GO_VERSION }}
+          work-dir: ./ios/server
 
   build:
     runs-on: ubuntu-latest

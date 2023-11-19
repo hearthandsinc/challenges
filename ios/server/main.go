@@ -21,9 +21,9 @@ import (
 )
 
 var (
-	hostname = envOrDefault("HOSTNAME", "localhost") // hostname used by the server
-	port     = envOrDefault("PORT", "3000")          // port used by the server
-	limit    = 100                                   // maximum number of entities returned in a single request
+	hostname = envOrDefault("HTTP_HOST", "localhost") // hostname used by the server
+	port     = envOrDefault("PORT", "3000")           // port used by the server
+	limit    = 100                                    // maximum number of entities returned in a single request
 )
 
 //go:embed data.json
