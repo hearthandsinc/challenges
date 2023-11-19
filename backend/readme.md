@@ -17,7 +17,7 @@ are expecting you to spend between 4 and 6 hours on this challenge.
 ## Instructions
 
 You are tasked with the server-side implementation of a messaging app that
-allows clients to send and receive messages in private 1:1 chats.
+allows clients to send and receive text messages in private 1:1 chats.
 
 We enforce no technical constraints: you are free to choose the language, data
 layer, network protocol, and design your API as you see fit. You are
@@ -27,7 +27,7 @@ you make.
 
 Functional requirements:
 
-- [ ] Clients should be able to uniquely identify themselves with a unique phone number
+- [ ] Clients should be able to uniquely identify themselves with a unique phone number (without authentication)
 - [ ] Clients should be able to send messages to other clients
 - [ ] Clients should be able to list all their chats with other clients
 - [ ] Clients should be able to list all messages in a chat
@@ -36,6 +36,7 @@ Functional requirements:
 
 Some topics to look at to dive deeper:
 
+- [ ] Allow clients to authenticate with their phone number
 - [ ] Add support for paginated chats and messages
 - [ ] Choose a network protocol that enables soft real-time message delivery to clients
 - [ ] Support SMS forwarding to relay the messages to the clients phone numbers
