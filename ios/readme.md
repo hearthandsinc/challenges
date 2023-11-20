@@ -16,12 +16,12 @@ are expecting you to spend between 4 and 6 hours on this challenge.
 
 ## Instructions
 
-You are tasked with the implementation of an iOS messaging app that allows to
+You are tasked with the implementation of an iOS messaging app that allows the user to
 communicate (send and receive text messages) with bots, each in their own 1:1
 chat.
 
 A server is available for you to use. You can read more about it in
-[`./server`](./server). Its documentation contains informations on how it can be
+[`./server`](./server). Its documentation contains information on how it can be
 run, and what kinds of API endpoints & entities are available.
 
 Functional requirements:
