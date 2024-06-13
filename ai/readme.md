@@ -1,6 +1,5 @@
 # AI Challenge
 
-Backend Challenge
 This challenge is part of the AI hiring process at Heart Hands.
 
 ## Why this challenge?
@@ -21,8 +20,7 @@ Functional requirements:
 E.g. (assuming that information is available in the chat history):
     - "What did Aymeric and I discuss last week?"
     - "Where does Aymeric live?"
-    - "When did I tell David I was sending him a roadmap update?"
-- [ ] Messages can be sent through an API and are directly searchable through the assistant.
+    - "What did David tell me about the roadmap?"
 - [ ] Your solution is multitenant. Users can only search their own history using their user ID.
 - [ ] Users can query their chat history through an API endpoint.
 
