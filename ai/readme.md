@@ -10,14 +10,14 @@ This exercise has been designed to give a glimpse of what it is like to build an
 
 ## Instructions
 
-You are tasked with implementing a retrieval system for a messaging app. It must expose API endpoints that enable users to query their conversation history using natural language. You are free to implement the API in any way you feel the most comfortable with. You can find a dataset of chat conversations between several users here.
+You are tasked with implementing a retrieval system for a messaging app. It must expose API endpoints that enable users to query their conversation history using natural language. You are free to implement the API in any way you feel the most comfortable with. You can find a dataset of chat conversations between several users [here](https://github.com/hearthandsinc/challenges/blob/main/ai/chats.json).
 
 We enforce no technical constraints: you are free to choose the language, data layer, network protocol, and design your API as you see fit. You are purposefully being given a lot of freedom here, and you will not be judged on these decisions alone, but we will challenge the understanding of the trade-offs you make.
 
 Functional requirements:
 
 - [ ] Users can search through their chat history using natural language.
-E.g. (assuming that information is available in the chat history):
+The question we will be asking:
     - "What did Aymeric and I discuss last week?"
     - "Where does Aymeric live?"
     - "What did David tell me about the roadmap?"
