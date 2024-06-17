@@ -14,15 +14,22 @@ You are tasked with implementing a retrieval system for a messaging app. It must
 
 We enforce no technical constraints: you are free to choose the language, data layer, network protocol, and design your API as you see fit. You are purposefully being given a lot of freedom here, and you will not be judged on these decisions alone, but we will challenge the understanding of the trade-offs you make.
 
+You can find a simple boilerplate for a Go/PGSQL/Qdrant app [here](https://github.com/hearthandsinc/challenges/tree/main/ai/boilterplate), but again, you are free to use any technology you want.
+
 Functional requirements:
 
-- [ ] Users can search through their chat history using natural language.
-The question we will be asking:
+- [ ] Users can search through their chat history using natural language. To evaluate the solution, we'll be asking questions from Matthias, Aymeric and David's point of view:
+- Matthias' id is: `018f2685-a936-44a9-8ff4-9ef0c98289b8`
+- Aymeric's id is: `82247543-5c2d-46d9-9a0d-fe25482922b5`
+- David's id is: `2d614bef-2b01-4021-b63a-9d04658536f3`
+- Example of the questions we will be asking:
     - "What did Aymeric and I discuss last week?"
     - "Where does Aymeric live?"
     - "What did David tell me about the roadmap?"
 - [ ] Your solution is multitenant. Users can only search their own history using their user ID.
 - [ ] Users can query their chat history through an API endpoint.
+
+
 
 ## Bonus
 
