@@ -28,10 +28,10 @@ purposefully being given a lot of freedom here, and you will not be judged on
 these decisions alone, but we will challenge the understanding of the trade-offs
 you make.
 
-This challenge contains a Go/PostgreSQL/Qdrant boilerplate that you can use as a
+To save time, we also provide a Go/PostgreSQL/Qdrant boilerplate that you can use as a
 starting point:
-- start the stack with `docker-compose up`
-- start the backend with `go run .`
+- start the stack with `cd ./ai && docker-compose up`
+- start the backend with `cd ./ai && go run .`
 
 Functional requirements:
 
