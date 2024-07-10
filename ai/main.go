@@ -54,13 +54,15 @@ func main() {
 	}
 	defer resp.Body.Close()
 
-	// Declare your http routes
+	// Create the HTTP server
 
 	r := chi.NewRouter()
 
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 	r.Use(middleware.Timeout(60 * time.Second))
+
+	// TODO: add your own routes here
 
 	r.Get("/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		_, _ = io.WriteString(w, "Hello, World!")
@@ -70,7 +72,7 @@ func main() {
 		w.WriteHeader(http.StatusOK)
 	}))
 
-	// Start the server, which will listen on http://localhost:8080
+	// Start the HTTP server
 	addr := net.JoinHostPort(hostname, port)
 	fmt.Printf("Starting server on http://%s\n", addr)
 	if err := http.ListenAndServe(addr, r); err != nil {
