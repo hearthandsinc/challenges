@@ -28,9 +28,10 @@ purposefully being given a lot of freedom here, and you will not be judged on
 these decisions alone, but we will challenge the understanding of the trade-offs
 you make.
 
-You can find a simple boilerplate for a Go/PGSQL/Qdrant app
-[here](https://github.com/hearthandsinc/challenges/tree/main/ai/boilterplate),
-but again, you are free to use any technology you want.
+This challenge contains a Go/PostgreSQL/Qdrant boilerplate that you can use as a
+starting point:
+- start the stack with `docker-compose up`
+- start the backend with `go run .`
 
 Functional requirements:
 
