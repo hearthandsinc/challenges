@@ -48,7 +48,7 @@ func main() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		io.WriteString(w, "Hello, World!")
+		_, _ = io.WriteString(w, "Hello, World!")
 	})
 
 	http.HandleFunc("/livez", func(w http.ResponseWriter, r *http.Request) {
