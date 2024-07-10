@@ -37,9 +37,9 @@ Functional requirements:
 - [ ] Users can search through their chat history using natural language. To
   evaluate the solution, we'll be asking questions from Matthias, Aymeric and
   David's point of view:
-- Matthias' id is: `018f2685-a936-44a9-8ff4-9ef0c98289b8`
-- Aymeric's id is: `82247543-5c2d-46d9-9a0d-fe25482922b5`
-- David's id is: `2d614bef-2b01-4021-b63a-9d04658536f3`
+    - Matthias' id is: `018f2685-a936-44a9-8ff4-9ef0c98289b8`
+    - Aymeric's id is: `82247543-5c2d-46d9-9a0d-fe25482922b5`
+    - David's id is: `2d614bef-2b01-4021-b63a-9d04658536f3`
 - Example of the questions we will be asking:
     - "What did Aymeric and I discuss last week?"
     - "Where does Aymeric live?"
