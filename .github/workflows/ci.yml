@@ -11,12 +11,15 @@ on:
       - "**.md"
 
 env:
-  GO_VERSION: "1.21.4" # https://go.dev/dl/
-  GOLANGCI_LINT_VERSION: "v1.55.2" # https://github.com/golangci/golangci-lint/releases
+  GO_VERSION: "1.22.5" # https://go.dev/dl/
+  GOLANGCI_LINT_VERSION: "v1.59.1" # https://github.com/golangci/golangci-lint/releases
 
 jobs:
   lint:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        cwd: ["./ios/server", "./ai"]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-go@v4
@@ -27,23 +30,29 @@ jobs:
         with:
           version: ${{ env.GOLANGCI_LINT_VERSION }}
           skip-cache: true
-          working-directory: ./ios/server
+          working-directory: ${{ matrix.cwd }}
 
   security:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        cwd: ["./ios/server", "./ai"]
     steps:
       - uses: golang/govulncheck-action@v1
         with:
           go-version-input: ${{ env.GO_VERSION }}
-          work-dir: ./ios/server
+          work-dir: ${{ matrix.cwd }}
 
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        cwd: ["./ios/server", "./ai"]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-go@v4
         with:
           go-version: ${{ env.GO_VERSION }}
       - name: Build go code
-        working-directory: ./ios/server
+        working-directory: ${{ matrix.cwd }}
         run: go build
