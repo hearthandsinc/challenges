@@ -1,7 +1,7 @@
 # Challenges [![ci status](https://github.com/hearthandsinc/challenges/actions/workflows/ci.yml/badge.svg)](https://github.com/hearthandsinc/challenges/actions/workflows/ci.yml)
 
 This repository contains the [Heart Hands](https://hearthands.tech/) engineering
-challenges for [iOS](./ios), [backend](./backend), and [AI](./aillm) positions.
+challenges for [iOS](./ios), [backend](./backend), and [AI](./ai) positions.
 
 ## Feedbacks
 
