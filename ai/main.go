@@ -20,7 +20,7 @@ var (
 	hostname = envOrDefault("HTTP_HOST", "localhost")
 
 	// port used by the server
-	port = envOrDefault("PORT", "3000")
+	port = envOrDefault("PORT", "8080")
 )
 
 func main() {
@@ -57,21 +57,24 @@ func main() {
 	r := chi.NewRouter()
 
 	r.Get("/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
 		_, _ = io.WriteString(w, "Hello, World!")
 	}))
 
-	http.HandleFunc("/livez", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	r.Get("/livez", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 	}))
 
 	// Start the server, which will listen on http://localhost:8080
-	addr := net.JoinHostPort("localhost", "8080")
-	fmt.Printf("Starting server on %s\n", addr)
+	addr := net.JoinHostPort(hostname, port)
+	fmt.Printf("Starting server on http://%s\n", addr)
 	if err := http.ListenAndServe(addr, r); err != nil {
 		panic(fmt.Errorf("failed to start server on %s: %w", addr, err))
 	}
 }
+
+//
+// Helpers
+//
 
 // envOrDefault returns the value of the environment variable at the given key.
 // Fallbacks to the given default if the value found is missing or empty.

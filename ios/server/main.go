@@ -55,8 +55,12 @@ func main() {
 		r.Post("/chats/{chatID}/messages", app.PostMessages)
 	})
 
+	r.Get("/livez", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	}))
+
 	addr := net.JoinHostPort(hostname, port)
-	fmt.Printf("Starting server on %s\n", addr)
+	fmt.Printf("Starting server on http://%s\n", addr)
 	if err := http.ListenAndServe(addr, r); err != nil {
 		panic(fmt.Errorf("failed to start server on %s: %w", addr, err))
 	}
