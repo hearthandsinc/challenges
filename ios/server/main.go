@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"math/rand"
+	"net"
 	"net/http"
 	"os"
 	"strconv"
@@ -49,7 +50,7 @@ func main() {
 		r.Post("/chats/{chatID}/messages", app.PostMessages)
 	})
 
-	addr := fmt.Sprintf("%s:%s", hostname, port)
+	addr := net.JoinHostPort(hostname, port)
 	fmt.Printf("Starting server on %s\n", addr)
 	if err := http.ListenAndServe(addr, r); err != nil {
 		panic(fmt.Errorf("failed to start server on %s: %w", addr, err))
