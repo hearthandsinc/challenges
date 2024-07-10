@@ -16,8 +16,11 @@ import (
 )
 
 var (
-	hostname = envOrDefault("HTTP_HOST", "localhost") // hostname used by the server
-	port     = envOrDefault("PORT", "3000")           // port used by the server
+	// hostname used by the server
+	hostname = envOrDefault("HTTP_HOST", "localhost")
+
+	// port used by the server
+	port = envOrDefault("PORT", "3000")
 )
 
 func main() {
