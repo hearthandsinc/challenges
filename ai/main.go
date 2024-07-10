@@ -62,8 +62,6 @@ func main() {
 	r.Use(middleware.Recoverer)
 	r.Use(middleware.Timeout(60 * time.Second))
 
-	// TODO: add your own routes here
-
 	r.Get("/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		_, _ = io.WriteString(w, "Hello, World!")
 	}))
@@ -71,6 +69,8 @@ func main() {
 	r.Get("/livez", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 	}))
+
+	// TODO: add your own routes here
 
 	// Start the HTTP server
 	addr := net.JoinHostPort(hostname, port)
