@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"math/rand"
+	"net"
 	"net/http"
 	"os"
 	"strconv"
@@ -21,9 +22,14 @@ import (
 )
 
 var (
-	hostname = envOrDefault("HTTP_HOST", "localhost") // hostname used by the server
-	port     = envOrDefault("PORT", "3000")           // port used by the server
-	limit    = 100                                    // maximum number of entities returned in a single request
+	// hostname used by the server
+	hostname = envOrDefault("HTTP_HOST", "localhost")
+
+	// port used by the server
+	port = envOrDefault("PORT", "3000")
+
+	// maximum number of entities returned in a single request
+	limit = 100
 )
 
 //go:embed data.json
@@ -49,8 +55,12 @@ func main() {
 		r.Post("/chats/{chatID}/messages", app.PostMessages)
 	})
 
-	addr := fmt.Sprintf("%s:%s", hostname, port)
-	fmt.Printf("Starting server on %s\n", addr)
+	r.Get("/livez", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	}))
+
+	addr := net.JoinHostPort(hostname, port)
+	fmt.Printf("Starting server on http://%s\n", addr)
 	if err := http.ListenAndServe(addr, r); err != nil {
 		panic(fmt.Errorf("failed to start server on %s: %w", addr, err))
 	}
