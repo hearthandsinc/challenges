@@ -29,8 +29,8 @@ Functional requirements:
 
 - [ ] Clients should be able to uniquely identify themselves with a phone number
       (without authentication)
-- [ ] Clients should be able to send messages to other clients via their phone
-      numbers
+- [ ] Clients should be able to send messages to other clients, identified by their
+      phone number
 - [ ] Clients should be able to list their chats
 - [ ] Clients should be able to list all messages in a chat
 
@@ -39,11 +39,9 @@ Functional requirements:
 Some topics that we find interesting to dig:
 
 - [ ] Choose a network protocol that enables soft real-time message delivery to the clients
-- [ ] Make the server message ingestion idempotent
+- [ ] Make the message ingestion idempotent
 - [ ] Add support for sent/delivered/read message status
 - [ ] Add support for chats and messages pagination
-- [ ] Implement SMS phone number verification to authenticate the clients
-- [ ] Support SMS forwarding to relay the messages to the clients phone numbers
 
 ## Challenge Review
 
