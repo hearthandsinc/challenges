@@ -14,7 +14,7 @@ We expect you to spend 4-6 hours on this challenge, simulating real-world, time-
 
 ## Instructions
 
-You are tasked with redesigning the call notes experience for the web, starting by designing the web preview of a call summary with sharing in mind.
+You are tasked with redesigning the call notes experience for the web, starting by designing the web view of a call note with sharing in mind.
 
 ### Requirements
 
