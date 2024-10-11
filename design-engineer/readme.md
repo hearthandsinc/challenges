@@ -1,63 +1,57 @@
 # Design Engineer Challenge
 
-This challenge is part of the Design Engineer hiring process at [Heart
-Hands](https://hearthands.tech/).
+Welcome to the Heart Hands Design Engineer Challenge. We want to see your creativity, product instincts, strategic thinking, and technical skills in action.
 
+This challenge is part of the hiring process for Design Engineers at [Heart Hands](https://hearthands.tech).
 
 ## Why this challenge?
 
-Heart Hands is a small team of passionate and talented individuals. We are looking for experienced design engineers with deep expertise in design systems, a strong understanding of design principles and tools, and excellent product instincts to join our team.
+We're a small, talented team seeking design engineers with strong technical abilities, product sense, and creativity. This challenge offers a glimpse into the impactful features we build and the challenges we tackle.
 
-This challenge is designed to provide insight into what it’s like to create intuitive, visually compelling interfaces for a call recording app, and the type of design challenges we tackle and care about. We expect you to spend between 4 and 6 hours on this challenge.
+M1 is all about communication, and a key part of this is sharing call notes seamlessly across platforms. This challenge will test your ability to think beyond a single platform, delivering exceptional design and user experience while balancing functionality, strategic prioritization, and implementation.
 
+We expect you to spend 4-6 hours on this challenge, simulating real-world, time-boxed work.
 
 ## Instructions
 
-You are tasked to rethink the call notes experience outside the M1 iOS app. Starting by designing and coding a prototype of a web preview of a call summary with sharing in mind.
+You are tasked with redesigning the call notes experience for the web, starting by designing the web preview of a call summary with sharing in mind.
 
-Requirements:
+### Requirements
 
-- [ ] A description of your approach and solution you came up with.
-- [ ] One or multiple designed screens.
-- [ ] A coded prototype that displays the call information, summary and actions.
-- [ ] A description of what would be needed to bring this prototype to life. (backend requirements, iOS requirements)
+- Write a proposal outlining your solution.
+- Include your designs in the document with a link to Figma.
+- Outline how you would measure success for your proposal.
+- Describe the next steps, challenges to build, and how you would start bringing the prototype to life.
+
+> **Note:** Don’t feel tied to existing designs. While being aware of what exists is great for feature parity, we encourage creativity and introducing something new.
 
 
 ## Context
 
-After a call in M1, user receives a nice summary inside the app. They often want to do more with it, and especially they want to share the notes to the other participant that don't necessarily have M1 installed.
+After a phone call, voice note, or Google Meet, users receive a detailed summary inside the app. They often want to do more with it, especially sharing the notes link with other participants who don't have M1 installed.
 
-Today, call notes on the web are doing the absolute bare minimum, the native view on iOS is far more advanced in terms of feature set, but once shared out of M1, new users are left with a sub-par experience.
+Currently, call notes on the web offer the bare minimum. The native iOS view is far more advanced in terms of features, but once shared outside of M1, new users are left with a subpar experience, missing out on M1’s magic!
 
-We identified this is a great opportunity to bring new users to the app. And as the scope of M1 will evolve with more products, sharing will become even more central.
-
+We see this as a great opportunity to bring new users to the app, give them a taste of M1 on the web, and drive virality, as sharing notes is key to relaying information.
 
 ## Bonus
 
-Some topics that we find interesting to dig:
-
-- [ ] How can we encourage users to share their summary?
-- [ ] Make the summary view flexible to support different kind of sources (Voice Memo, Video Meeting, etc.)
-- [ ] How will the summary look on different devices and environments.
-- [ ] _Anything_ that you feel could improve the UX!
-
+Prototype with code: If you have ideas that are better expressed through code than a static prototype, let’s see them!
 
 ## Resources
 
-We have prepared a figma file containing some of our existing designs so you can build upon it.
+We have prepared a Figma file containing some of our existing designs for you to copy or build upon!
 
-*[Insert Design Preview]*
+[Open Figma](https://www.figma.com/design/LYHc8FzoYfAVo2tPdh9lc1/%5BStef%5D-Design-Engineer-Challenge?node-id=0-1&t=bPSKWg0mJOr1aq31-1)
+
+<img width="1155" alt="Screenshot 2024-10-11 at 1 28 54 PM" src="https://github.com/user-attachments/assets/6b1a75d3-e578-4e5c-bf5c-f520108808f8">
 
 
 ## Challenge Review
 
-We know you only have a limited time alloted to deliver this challenge, and thus
-will have to prioritize what you work on. A few things that are important for us
-and that will be considered during the review:
-- **descriptive**: are the approaches and choices clearly backed up by a description that the team can follow?
-- **impact**: which features did you prioritize?
-- **evolution**: can the project be smoothly taken to prod and/or iterated on?
+Here are some key points that will be considered during the review:
 
-***
-
-Good luck, and enjoy!
+- **Storytelling:** Your ability to articulate ideas and present them in a way that excites people and helps them understand your proposal.
+- **Impact:** How would you measure success for this iteration? What data points would you look for after the release?
+- **Prioritization:** What trade-offs did you make, and how did they drive your focus? What would you do if you had more time?
+- **Evolution:** If the iteration performs well, how do you see the feature evolving? What theories or opinions does it help shape for you about the product?
