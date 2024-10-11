@@ -55,3 +55,5 @@ Here are some key points that will be considered during the review:
 - **Impact:** How would you measure success for this iteration? What data points would you look for after the release?
 - **Prioritization:** What trade-offs did you make, and how did they drive your focus? What would you do if you had more time?
 - **Evolution:** If the iteration performs well, how do you see the feature evolving? What theories or opinions does it help shape for you about the product?
+
+Have fun building magic! 🌠
