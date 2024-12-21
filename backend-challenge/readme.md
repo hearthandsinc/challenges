@@ -1,6 +1,6 @@
 # Backend Challenge
 
-_This challenge is part of the hiring process at [Heart
+_This challenge is part of the engineering hiring process at [Heart
 Hands](https://hearthands.tech/)._
 
 ## Why this challenge?
