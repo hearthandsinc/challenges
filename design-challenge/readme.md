@@ -3,8 +3,6 @@
 _This challenge is part of the engineering hiring process at [Heart
 Hands](https://hearthands.tech/)._
 
-Welcome to the Heart Hands Design Engineer Challenge. We want to see your creativity, product instincts, strategic thinking, and technical skills in action.
-
 ## Why this challenge?
 
 We're a small, talented team seeking design engineers with strong technical abilities, product sense, and creativity. This challenge offers a glimpse into the impactful features we build and the challenges we tackle.
