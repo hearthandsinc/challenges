@@ -1,8 +1,8 @@
-# Design Engineer Challenge
+# Design Challenge
+
+_This challenge is part of the hiring process for Design Engineers at [Heart Hands](https://hearthands.tech)._
 
 Welcome to the Heart Hands Design Engineer Challenge. We want to see your creativity, product instincts, strategic thinking, and technical skills in action.
-
-This challenge is part of the hiring process for Design Engineers at [Heart Hands](https://hearthands.tech).
 
 ## Why this challenge?
 
