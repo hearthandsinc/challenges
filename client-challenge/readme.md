@@ -41,7 +41,7 @@ Functional requirements:
 
 Some topics that we find interesting to dig:
 
-- [ ] Make the app work offline (both for the app state and pending messages)
+- [ ] Make the app work offline using a persistence layer of your choice
 - [ ] Make the app idempotent in regards to what you send and receive
 - [ ] Integrate a splashscreen to hide chats while the app is loading
 - [ ] Add support for optimistic sending to give instantaneity in the UI
