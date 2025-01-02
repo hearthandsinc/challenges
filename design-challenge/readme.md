@@ -41,9 +41,7 @@ Prototype with code: If you have ideas that are better expressed through code th
 
 We have prepared a Figma file containing some of our existing designs for you to copy or build upon!
 
-[Open Figma](https://www.figma.com/design/LYHc8FzoYfAVo2tPdh9lc1/%5BStef%5D-Design-Engineer-Challenge?node-id=0-1&t=bPSKWg0mJOr1aq31-1)
-
-<img width="1155" alt="Screenshot 2024-10-11 at 1 28 54 PM" src="https://github.com/user-attachments/assets/6b1a75d3-e578-4e5c-bf5c-f520108808f8">
+<img width="1155" src="https://github.com/user-attachments/assets/6b1a75d3-e578-4e5c-bf5c-f520108808f8">
 
 
 ## Challenge Review
