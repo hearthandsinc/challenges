@@ -62,6 +62,9 @@ chats, and read & write messages.
 #### `Message`
 - `id` (`number`): the message id
 - `chat_id` (`number`): the id of the chat this message belongs to
-- `author` (`string`): the message author (either the constant string `"user"` or `"bot"`)
+- `author` (`string`): the message author (either the constant string `"user"`
+  or `"bot"`)
 - `text` (`string`): the actual content of the message
 - `sent_at` (`string`): the date at which the message was sent
+- `idempotency_key` (`string`): the idempotency key that was passed during the
+  message creation
