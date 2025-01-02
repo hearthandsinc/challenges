@@ -1,7 +1,7 @@
 # Backend Challenge
 
-This challenge is part of the backend hiring process at [Heart
-Hands](https://hearthands.tech/).
+_This challenge is part of the engineering hiring process at [Heart
+Hands](https://hearthands.tech/)._
 
 ## Why this challenge?
 
@@ -11,8 +11,9 @@ understanding of their technical stack, and excellent product intuitions to join
 our team.
 
 This exercise has been designed to give a glimpse of what it is like to build a
-messaging app, and the kind of technical challenges we face and care about. We
-are expecting you to spend between 4 and 6 hours on this challenge.
+messaging app, and the kind of technical challenges we face and care about.
+
+We expect you to spend 4-6 hours on this challenge, simulating real-world, time-boxed work.
 
 ## Instructions
 
@@ -50,7 +51,7 @@ will have to prioritize what you work on. A few things that are important for us
 and that will be considered during the review:
 - **documentation**: is the readme clear? are important parts of the code
   documented?
-- **impact**: which features did you prioritize?
+- **impact**: what did you consciouslly decided to prioritize?
 - **maintainability**: is the code well-structured and easy to read/evolve?
 - **robustness**: is the code tested or easily testable? are edge-cases
   considered? is static analysis leveraged?
