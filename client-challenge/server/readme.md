@@ -46,12 +46,15 @@ chats, and read & write messages.
 
 ### Endpoints
 
-- `GET /events?stream=messages`: an [SSE](https://en.wikipedia.org/wiki/Server-sent_events) stream that sends you `Message` entities as they are ingested by the server
+- `GET /events?stream=messages`: an
+  [SSE](https://en.wikipedia.org/wiki/Server-sent_events) stream that sends you
+  `Message` entities as they are ingested by the server
 - `GET /chats`: returns a list of all `Chat` entities
-- `GET /chats/{chat_id}/messages`: returns a list of the 100 most recent `Message` entities in a chat
-- `POST /chats/{chat_id}/messages`: send a new message in a chat and returns
-  the newly created `Message` entity. It expects a JSON payload of the form: `{ "text":
-  "..." }`
+- `GET /chats/{chat_id}/messages`: returns a list of the 100 most recent
+  `Message` entities in a chat
+- `POST /chats/{chat_id}/messages`: send a new message in a chat and returns the
+  newly created `Message` entity. It expects a JSON payload of the form: `{
+  "text": "..." }`
 
 ### Entities
 
