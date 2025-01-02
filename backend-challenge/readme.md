@@ -51,7 +51,7 @@ will have to prioritize what you work on. A few things that are important for us
 and that will be considered during the review:
 - **documentation**: is the readme clear? are important parts of the code
   documented?
-- **impact**: which features did you prioritize?
+- **impact**: what did you consciouslly decided to prioritize?
 - **maintainability**: is the code well-structured and easy to read/evolve?
 - **robustness**: is the code tested or easily testable? are edge-cases
   considered? is static analysis leveraged?
