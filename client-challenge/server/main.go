@@ -1,6 +1,7 @@
 package main
 
 import (
+	"cmp"
 	_ "embed"
 	"encoding/json"
 	"fmt"
@@ -8,28 +9,28 @@ import (
 	"net"
 	"net/http"
 	"os"
-	"strconv"
-	"strings"
 	"sync"
-	"sync/atomic"
 	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/render"
+	"github.com/google/uuid"
 	"github.com/r3labs/sse/v2"
 	"golang.org/x/exp/maps"
 )
 
-var (
-	// hostname used by the server
-	hostname = envOrDefault("HTTP_HOST", "localhost")
-
-	// port used by the server
-	port = envOrDefault("PORT", "3000")
-
+const (
 	// maximum number of entities returned in a single request
 	limit = 100
+)
+
+var (
+	// hostname used by the server
+	hostname = cmp.Or(os.Getenv("HTTP_HOST"), "localhost")
+
+	// port used by the server
+	port = cmp.Or(os.Getenv("PORT"), "3000")
 )
 
 //go:embed data.json
@@ -43,7 +44,7 @@ func main() {
 
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
-	r.Use(middleware.Timeout(60 * time.Second))
+	r.Use(middleware.Timeout(30 * time.Second))
 
 	r.Handle("/events", http.HandlerFunc(events.ServeHTTP))
 
@@ -51,13 +52,9 @@ func main() {
 		r.Use(render.SetContentType(render.ContentTypeJSON))
 		r.Use(chaosMiddleware)
 		r.Get("/chats", app.GetChats)
-		r.Get("/chats/{chatID}/messages", app.GetMessages)
-		r.Post("/chats/{chatID}/messages", app.PostMessages)
+		r.Get("/chats/{chatID}/messages", app.GetChatMessages)
+		r.Post("/chats/{chatID}/messages", app.PostChatMessages)
 	})
-
-	r.Get("/livez", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-	}))
 
 	addr := net.JoinHostPort(hostname, port)
 	fmt.Printf("Starting server on http://%s\n", addr)
@@ -71,18 +68,19 @@ func main() {
 //
 
 type Chat struct {
-	ID   uint32 `json:"id"`
-	Name string `json:"name"`
+	ID   uuid.UUID `json:"id"`
+	Name string    `json:"name"`
 
 	messages []*Message
 }
 
 type Message struct {
-	ID     uint32    `json:"id"`
-	ChatID uint32    `json:"chat_id"`
-	Author string    `json:"author"`
-	Text   string    `json:"text"`
-	SentAt time.Time `json:"sent_at"`
+	ID             uuid.UUID `json:"id"`
+	ChatID         uuid.UUID `json:"chat_id"`
+	Author         string    `json:"author"`
+	Text           string    `json:"text"`
+	SentAt         time.Time `json:"sent_at"`
+	IdempotencyKey string    `json:"idempotency_key"`
 }
 
 // App is both our controller and our data store. This coupling allows to keep
@@ -93,7 +91,7 @@ type App struct {
 
 	mu              sync.RWMutex
 	idempotencyKeys map[string]struct{} // store idempotency keys
-	store           map[uint32]*Chat    // in-memory store of chats and messages
+	store           map[uuid.UUID]*Chat // in-memory store of chats and messages
 }
 
 func NewApp(events *sse.Server) *App {
@@ -107,22 +105,21 @@ func NewApp(events *sse.Server) *App {
 	now := time.Now()
 
 	// store contains all the chats, indexed by their ID
-	store := map[uint32]*Chat{}
-	for i, chat := range []*Chat{
-		{Name: "John", messages: []*Message{
-			{ID: newID(), Author: "bot", Text: "Sounds good 👍", SentAt: now},
+	store := map[uuid.UUID]*Chat{}
+	for _, chat := range []*Chat{
+		{ID: uuid.New(), Name: "John", messages: []*Message{
+			{ID: uuid.New(), Author: "bot", Text: "Sounds good 👍", SentAt: now, IdempotencyKey: uuid.New().String()},
 		}},
-		{Name: "Jessica", messages: []*Message{
-			{ID: newID(), Author: "bot", Text: "How are you!?", SentAt: now.Add(-1 * time.Minute)},
+		{ID: uuid.New(), Name: "Jessica", messages: []*Message{
+			{ID: uuid.New(), Author: "bot", Text: "How are you!?", SentAt: now.Add(-1 * time.Minute), IdempotencyKey: uuid.New().String()},
 		}},
-		{Name: "Matt", messages: []*Message{
-			{ID: newID(), Author: "bot", Text: "ok chat soon :)", SentAt: now.Add(-32 * time.Minute)},
+		{ID: uuid.New(), Name: "Matt", messages: []*Message{
+			{ID: uuid.New(), Author: "bot", Text: "ok chat soon :)", SentAt: now.Add(-32 * time.Minute), IdempotencyKey: uuid.New().String()},
 		}},
-		{Name: "Sarah", messages: []*Message{
-			{ID: newID(), Author: "bot", Text: "ok talk later!", SentAt: now.Add(-24 * time.Hour)},
+		{ID: uuid.New(), Name: "Sarah", messages: []*Message{
+			{ID: uuid.New(), Author: "bot", Text: "ok talk later!", SentAt: now.Add(-24 * time.Hour), IdempotencyKey: uuid.New().String()},
 		}},
 	} {
-		chat.ID = uint32(i + 1) // we don't want to have a chat id == 0
 		for _, message := range chat.messages {
 			message.ChatID = chat.ID
 		}
@@ -147,7 +144,7 @@ func (app *App) GetChats(w http.ResponseWriter, r *http.Request) {
 	render.JSON(w, r, chats)
 }
 
-func (app *App) GetMessages(w http.ResponseWriter, r *http.Request) {
+func (app *App) GetChatMessages(w http.ResponseWriter, r *http.Request) {
 	app.mu.RLock()
 	defer app.mu.RUnlock()
 
@@ -164,7 +161,7 @@ func (app *App) GetMessages(w http.ResponseWriter, r *http.Request) {
 	render.JSON(w, r, chat.messages[start:end])
 }
 
-func (app *App) PostMessages(w http.ResponseWriter, r *http.Request) {
+func (app *App) PostChatMessages(w http.ResponseWriter, r *http.Request) {
 	app.mu.Lock()
 	defer app.mu.Unlock()
 
@@ -192,17 +189,20 @@ func (app *App) PostMessages(w http.ResponseWriter, r *http.Request) {
 	}
 
 	newMessage := &Message{
-		ID:     newID(),
-		ChatID: chat.ID,
-		Author: "user",
-		Text:   message.Text,
-		SentAt: time.Now(),
+		ID:             uuid.New(),
+		ChatID:         chat.ID,
+		Author:         "user",
+		Text:           message.Text,
+		SentAt:         time.Now(),
+		IdempotencyKey: idempotencyKey,
 	}
 
 	chat.messages = append(chat.messages, newMessage)
 	app.publishEvent("messages", newMessage)
-	app.idempotencyKeys[idempotencyKey] = struct{}{}
+
 	go app.sendDelayedAnswer(chat)
+
+	app.idempotencyKeys[idempotencyKey] = struct{}{}
 
 	w.WriteHeader(http.StatusOK)
 	render.JSON(w, r, newMessage)
@@ -217,11 +217,12 @@ func (app *App) sendDelayedAnswer(chat *Chat) {
 	text := app.jokes[rand.Intn(len(app.jokes))]
 
 	newMessage := &Message{
-		ID:     newID(),
-		ChatID: chat.ID,
-		Author: "bot",
-		Text:   text,
-		SentAt: time.Now(),
+		ID:             uuid.New(),
+		ChatID:         chat.ID,
+		Author:         "bot",
+		Text:           text,
+		SentAt:         time.Now(),
+		IdempotencyKey: uuid.New().String(),
 	}
 
 	chat.messages = append(chat.messages, newMessage)
@@ -229,14 +230,14 @@ func (app *App) sendDelayedAnswer(chat *Chat) {
 }
 
 func (app *App) findChatByID(rawID string) (*Chat, error) {
-	chatID, err := strconv.ParseUint(rawID, 10, 32)
+	parsedID, err := uuid.Parse(rawID)
 	if err != nil {
 		return nil, fmt.Errorf("invalid chat ID %s: %w", rawID, err)
 	}
 
-	chat, ok := app.store[uint32(chatID)]
+	chat, ok := app.store[parsedID]
 	if !ok {
-		return nil, fmt.Errorf("chat %s not found", rawID)
+		return nil, fmt.Errorf("chat not found with ID %s", rawID)
 	}
 
 	return chat, nil
@@ -253,28 +254,6 @@ func (app *App) publishEvent(stream string, payload any) {
 	}
 }
 
-//
-// Helpers
-//
-
-// lastID is the last ID generated by newID. It starts counting from the current
-// timestamp in seconds.
-var lastID = uint32(time.Now().Unix())
-
-// newID generates a new ID, unique for the lifetime of this server.
-func newID() uint32 {
-	return atomic.AddUint32(&lastID, 1)
-}
-
-// envOrDefault returns the value of the environment variable at the given key.
-// Fallbacks to the given default if the value found is missing or empty.
-func envOrDefault(key string, defaultValue string) string {
-	if v := strings.TrimSpace(os.Getenv(key)); len(v) > 0 {
-		return v
-	}
-	return defaultValue
-}
-
 // chaosMiddleware makes sure to randomly return errors and adds artificial
 // latency to simulate a real world system.
 func chaosMiddleware(next http.Handler) http.Handler {
@@ -288,7 +267,7 @@ func chaosMiddleware(next http.Handler) http.Handler {
 			return
 		}
 
-		// 5% chance of timeout
+		// 5% chance of timeout after 5 seconds
 		if rand.Intn(100) < 5 {
 			<-time.After(5 * time.Second)
 			http.Error(w, "timeout", http.StatusGatewayTimeout)

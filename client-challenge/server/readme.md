@@ -1,7 +1,6 @@
 # Client Challenge - Server Companion
 
-This server is used as a companion for the iOS challenge. Persistence is
-in-memory, and restarting the server will reset its state.
+This server is used as a companion for the client challenge.
 
 The server will sometime be a bit capricious, you might observe:
 - failure to receive a response
@@ -10,6 +9,9 @@ The server will sometime be a bit capricious, you might observe:
 
 When that happens, you should retry and react accordingly.
 
+_Note: persistence is in-memory only, and restarting the server will reset its
+state._
+
 ## How to start the server?
 
 1. You need to install Go on your system: follow the [official documentation](https://go.dev/doc/install)
@@ -17,12 +19,14 @@ When that happens, you should retry and react accordingly.
 
 ## How to make the server reachable from another machine?
 
-You might want to allow the server to be reached from another machine
-(simulator or a phone for example). One way to do that is to use [ngrok]().
+You might want to allow the server to be reached from another machine (a
+simulator or a phone for example). One way to do that is to use
+[ngrok](https://ngrok.com/).
 
 1. You need to install Ngrok on your system: follow the [official
    documentation](https://ngrok.com/download)
-2. Then, after having started the server (see above), execute the command: `ngrok http 3000`
+2. Then, after having started the go server (see above), execute the command
+   `ngrok http 3000`.
 
 This will give you a public URL of the form
 `https://9f98-62-194-145-77.ngrok.io`, that can be used to reach your server
@@ -42,7 +46,7 @@ chats, and read & write messages.
 
 ### Endpoints
 
-- `GET /events?stream=messages`: an [SSE](https://en.wikipedia.org/wiki/Server-sent_events) stream that sends you `Message` entities as they are received by the server
+- `GET /events?stream=messages`: an [SSE](https://en.wikipedia.org/wiki/Server-sent_events) stream that sends you `Message` entities as they are ingested by the server
 - `GET /chats`: returns a list of all `Chat` entities
 - `GET /chats/{chat_id}/messages`: returns a list of the 100 most recent `Message` entities in a chat
 - `POST /chats/{chat_id}/messages`: send a new message in a chat and returns

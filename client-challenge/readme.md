@@ -13,16 +13,19 @@ our team.
 This exercise has been designed to give a glimpse of what it is like to build a
 messaging app, and the kind of technical challenges we face and care about.
 
-We expect you to spend 4-6 hours on this challenge, simulating real-world, time-boxed work.
+We expect you to spend 4-6 hours on this challenge, simulating real-world,
+time-boxed work.
 
 ## Instructions
 
 You are tasked with the implementation of a messaging app that allows the user
 to communicate (send and receive text messages) with bots, each in their own 1:1
-chat. You can choose a target platform of your choice for this challenge: iOS,
-macOS, or web.
+chat.
 
-A server is available for you to use. You can read more about it in
+You can choose a target platform of your choice for this challenge: iOS, macOS,
+or web.
+
+A companion server is available for you to use. You can read more about it in
 [`./server`](./server). Its documentation contains information on how it can be
 run, and what kinds of API endpoints & entities are available.
 
@@ -62,7 +65,7 @@ will have to prioritize what you work on. A few things that are important for us
 and that will be considered during the review:
 - **documentation**: is the readme clear? are important parts of the code
   documented?
-- **impact**: which features did you prioritize?
+- **impact**: what did you consciouslly decided to prioritize?
 - **maintainability**: is the code well-structured and easy to read/evolve?
 - **robustness**: is the code tested or easily testable? are edge-cases
   considered? is static analysis leveraged?
