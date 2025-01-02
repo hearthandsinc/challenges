@@ -22,12 +22,12 @@ You are tasked with the implementation of a messaging app that allows the user
 to communicate (send and receive text messages) with bots, each in their own 1:1
 chat.
 
-You can choose a target platform of your choice for this challenge: iOS, macOS,
-or web.
-
 A companion server is available for you to use. You can read more about it in
 [`./server`](./server). Its documentation contains information on how it can be
 run, and what kinds of API endpoints & entities are available.
+
+You can choose a target platform of your choice for this challenge: iOS, macOS,
+or web.
 
 Functional requirements:
 
@@ -41,14 +41,14 @@ Functional requirements:
 
 Some topics that we find interesting to dig:
 
-- [ ] Make the app work offline (both for app state and sending)
+- [ ] Make the app work offline (both for the app state and pending messages)
 - [ ] Make the app idempotent in regards to what you send and receive
 - [ ] Integrate a splashscreen to hide chats while the app is loading
 - [ ] Add support for optimistic sending to give instantaneity in the UI
 - [ ] Add support for a local read/unread indicator
-- [ ] Avoid block changing states so the app feels fluid & snappy
-- [ ] Make the app compatible to run on iPad and macOS
-- [ ] Make the app runnable on multiple devices
+- [ ] Avoid to block changing states so the app feels fluid & snappy
+- [ ] Make the app available in multiple environments (e.g.: iOS/macOS,
+  web/electron)
 - [ ] _Anything_ that you feel could improve the UX!
 
 ## Design
